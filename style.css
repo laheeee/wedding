@@ -102,20 +102,20 @@ a {
 
 .hero-title-small {
   display: block;
-  font-size: clamp(30px, 7.5vw, 52px);
+  font-size: clamp(20px, 5vw, 32px);
   font-weight: 700;
 }
 
 .hero-title-names {
   display: block;
   margin-top: 18px;
-  font-size: clamp(28px, 7.2vw, 48px);
+  font-size: clamp(18px, 5vw, 32px);
   font-weight: 700;
 }
 
 .hero-date {
   margin: 40px 0 44px;
-  font-size: clamp(24px, 6.5vw, 42px);
+  font-size: clamp(16px, 4.5vw, 28px);
   font-weight: 600;
   letter-spacing: -0.02em;
 }
