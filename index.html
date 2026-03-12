@@ -1,79 +1,352 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Wedding of Lee Byeong gwon & Kim La Hee</title>
-    <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8" />
+  <meta
+    name="viewport"
+    content="widthㅁ=device-width, initial-scale=1, viewport-fit=cover"
+  />
+  <title>Byungkwon & Lahee Wedding Invitation</title>
+  <meta name="description" content="병권 그리고 라희의 모바일 청첩장" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap"
+    rel="stylesheet"
+  />
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-    <div class="invitation-container">
-        <!-- 편지봉투 애니메이션 컨테이너 -->
-        <div class="envelope-container">
-            <div class="envelope">
-                <div class="envelope-flap"></div>
-                <div class="envelope-body">
-                    <div class="wedding-text">
-                        <h1>The Wedding of</h1>
-                        <h2>Lee Byeong gwon & Kim La Hee</h2>
-                        <p class="date">2026.08.08.</p>
-                    </div>
-                </div>
-            </div>
+  <main class="invitation">
 
-            <!-- 사진 컨테이너 -->
-            <div class="photo-container">
-                <img src="IMG_7450.jpg" alt="Wedding Photo 1" class="wedding-photo photo-1">
-                <img src="IMG_7449.jpg" alt="Wedding Photo 2" class="wedding-photo photo-2">
-            </div>
+    <!-- HERO -->
+    <section class="hero section">
+      <p class="hero-message">
+        저희의 순간을 축복해 주신다면<br />
+        이번 겨울은 더없이 빛날 것입니다.
+      </p>
+
+      <h1 class="hero-title">
+        <span class="hero-title-small">The Wedding of</span>
+        <span class="hero-title-names">Byungkwon &amp; Lahee</span>
+      </h1>
+
+      <p class="hero-date">2026. 12. 08.</p>
+
+      <button
+        class="envelope-scene is-closed"
+        id="envelopeButton"
+        type="button"
+        aria-expanded="false"
+        aria-label="청첩장 열기"
+      >
+        <div class="photo-card">
+          <div class="photo-frame">
+            <img src="images/main-photo.jpg" alt="병권과 라희의 웨딩 사진" />
+          </div>
         </div>
 
-        <!-- 기존 청첩장 내용 (편지봉투 열린 후 표시) -->
-        <div class="invitation-content" style="display: none;">
-            <header class="header">
-                <h1>결혼식 청첩장</h1>
-                <div class="hearts">💕💕💕</div>
-            </header>
-
-            <main class="main-content">
-                <div class="couple-info">
-                    <h2>이병권 & 김라희</h2>
-                    <p class="relationship">의 결혼을 축하드립니다</p>
-                </div>
-
-                <div class="wedding-details">
-                    <div class="detail-item">
-                        <h3>📅 날짜</h3>
-                        <p>2026년 8월 8일</p>
-                    </div>
-                    <div class="detail-item">
-                        <h3>🕐 시간</h3>
-                        <p>오후 4시</p>
-                    </div>
-                    <div class="detail-item">
-                        <h3>📍 장소</h3>
-                        <p>서울특별시 강남구<br>더 파크뷰 웨딩홀</p>
-                    </div>
-                </div>
-
-                <div class="message">
-                    <p>새로운 시작을 함께 축하해 주시면<br>더없이 기쁠 것입니다.</p>
-                </div>
-
-                <div class="contact-info">
-                    <h3>연락처</h3>
-                    <p>신랑측: 이병권 (010-1234-5678)</p>
-                    <p>신부측: 김라희 (010-9876-5432)</p>
-                </div>
-            </main>
-
-            <footer class="footer">
-                <p>참석 여부를 알려주세요</p>
-                <button class="rsvp-button">참석 의사 전달</button>
-            </footer>
+        <div class="envelope">
+          <div class="envelope-back"></div>
+          <div class="envelope-letter-shadow"></div>
+          <div class="envelope-flap"></div>
+          <div class="envelope-front envelope-front-left"></div>
+          <div class="envelope-front envelope-front-right"></div>
+          <div class="envelope-front envelope-front-bottom"></div>
         </div>
-    </div>
 
-    <script src="script.js"></script>
+        <span class="tap-guide" id="tapGuide">Tap to open</span>
+      </button>
+    </section>
+
+    <!-- COUPLE -->
+    <section class="section couple-section">
+      <h2 class="section-title">Couple</h2>
+
+      <div class="couple-box">
+        <p class="couple-line">신랑 병권 · 신부 라희</p>
+        <p class="family-line">신랑측 혼주 아버지 OOO · 어머니 OOO</p>
+        <p class="family-line">신부측 혼주 아버지 OOO · 어머니 OOO</p>
+      </div>
+    </section>
+
+    <!-- WEDDING INFO -->
+    <section class="section info-section">
+      <h2 class="section-title">Wedding Information</h2>
+
+      <div class="info-box">
+        <p class="info-line">
+          더채플앳청담<br />
+          6층 채플홀
+        </p>
+
+        <p class="info-line">
+          2026년 12월 8일 화요일<br />
+          오후 12시 30분
+        </p>
+
+        <p class="info-line dday-wrap">
+          <span class="dday-label">예식까지 남은 시간</span><br />
+          <span id="countdown">D-000 00:00:00</span>
+        </p>
+
+        <div class="calendar-button-wrap">
+          <a
+            class="calendar-btn"
+            href="calendar/wedding.ics"
+            download
+          >
+            캘린더에 일정 저장
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- MESSAGE -->
+    <section class="section message-section">
+      <h2 class="section-title">Invitation</h2>
+
+      <div class="message-box">
+        <p>
+          서로 다른 길을 걸어온 두 사람이<br />
+          같은 곳을 바라보며 함께 걷고자 합니다.
+        </p>
+        <p>
+          기쁠 때에도, 어려운 날에도<br />
+          서로에게 가장 다정한 사람이 되겠습니다.
+        </p>
+        <p>
+          저희의 새로운 시작이<br />
+          따뜻한 축복 속에 더욱 빛날 수 있도록
+        </p>
+        <p>
+          소중한 걸음으로 함께해 주시면<br />
+          큰 기쁨으로 간직하겠습니다.
+        </p>
+      </div>
+    </section>
+
+    <!-- GALLERY -->
+    <section class="section gallery-section">
+      <h2 class="section-title">Gallery</h2>
+
+      <div class="gallery-grid">
+        <button class="gallery-item" type="button" data-image="images/gallery1.jpg">
+          <img src="images/gallery1.jpg" alt="웨딩촬영 사진 1" />
+        </button>
+        <button class="gallery-item" type="button" data-image="images/gallery2.jpg">
+          <img src="images/gallery2.jpg" alt="웨딩촬영 사진 2" />
+        </button>
+        <button class="gallery-item" type="button" data-image="images/gallery3.jpg">
+          <img src="images/gallery3.jpg" alt="웨딩촬영 사진 3" />
+        </button>
+        <button class="gallery-item" type="button" data-image="images/gallery4.jpg">
+          <img src="images/gallery4.jpg" alt="웨딩촬영 사진 4" />
+        </button>
+        <button class="gallery-item" type="button" data-image="images/gallery5.jpg">
+          <img src="images/gallery5.jpg" alt="웨딩촬영 사진 5" />
+        </button>
+        <button class="gallery-item" type="button" data-image="images/gallery6.jpg">
+          <img src="images/gallery6.jpg" alt="웨딩촬영 사진 6" />
+        </button>
+      </div>
+    </section>
+
+    <!-- LOCATION -->
+    <section class="section location-section">
+      <h2 class="section-title">Location</h2>
+
+      <div class="location-card">
+        <p class="location-place">더채플앳청담 6층 채플홀</p>
+        <p class="location-address">서울 강남구 선릉로 757</p>
+
+        <div class="map-box">
+          <a
+            class="map-placeholder"
+            href="https://map.kakao.com/link/search/더채플앳청담"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            지도로 보기
+          </a>
+        </div>
+
+        <div class="map-buttons">
+          <a
+            href="https://map.kakao.com/link/search/더채플앳청담"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="map-btn"
+          >
+            카카오맵
+          </a>
+          <a
+            href="https://map.naver.com/p/search/더채플앳청담"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="map-btn"
+          >
+            네이버지도
+          </a>
+          <a href="tel:02-421-1121" class="map-btn">전화하기</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ACCOUNT -->
+    <section class="section account-section">
+      <h2 class="section-title">Account</h2>
+
+      <div class="account-accordion">
+
+        <details class="account-panel">
+          <summary>신랑측 마음 전하실 곳</summary>
+          <div class="account-panel-body">
+            <p class="account-name">병권</p>
+            <p class="account-number" id="accountGroom">국민은행 123456-78-123456</p>
+            <button class="copy-btn" data-copy-target="accountGroom" type="button">
+              계좌번호 복사
+            </button>
+          </div>
+        </details>
+
+        <details class="account-panel">
+          <summary>신부측 마음 전하실 곳</summary>
+          <div class="account-panel-body">
+            <p class="account-name">라희</p>
+            <p class="account-number" id="accountBride">신한은행 110-123-456789</p>
+            <button class="copy-btn" data-copy-target="accountBride" type="button">
+              계좌번호 복사
+            </button>
+          </div>
+        </details>
+
+      </div>
+    </section>
+  </main>
+
+  <!-- GALLERY MODAL -->
+  <div class="gallery-modal" id="galleryModal" aria-hidden="true">
+    <button class="gallery-modal-close" id="galleryModalClose" type="button" aria-label="닫기">
+      ×
+    </button>
+    <img id="galleryModalImage" src="" alt="확대된 웨딩사진" />
+  </div>
+
+  <script>
+    // envelope
+    const envelopeButton = document.getElementById("envelopeButton");
+    const tapGuide = document.getElementById("tapGuide");
+    let isOpen = false;
+
+    function renderEnvelopeState() {
+      envelopeButton.classList.toggle("is-open", isOpen);
+      envelopeButton.classList.toggle("is-closed", !isOpen);
+      envelopeButton.setAttribute("aria-expanded", String(isOpen));
+      tapGuide.textContent = isOpen ? "Tap to close" : "Tap to open";
+    }
+
+    envelopeButton.addEventListener("click", () => {
+      isOpen = !isOpen;
+      renderEnvelopeState();
+    });
+
+    window.addEventListener("load", () => {
+      setTimeout(() => {
+        isOpen = true;
+        renderEnvelopeState();
+      }, 600);
+    });
+
+    // countdown
+    const countdownElement = document.getElementById("countdown");
+    const weddingDate = new Date("2026-12-08T12:30:00+09:00");
+
+    function updateCountdown() {
+      const now = new Date();
+      const diff = weddingDate - now;
+
+      if (diff <= 0) {
+        countdownElement.textContent = "D-DAY 00:00:00";
+        return;
+      }
+
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+      const minutes = Math.floor((diff / (1000 * 60)) % 60);
+      const seconds = Math.floor((diff / 1000) % 60);
+
+      countdownElement.textContent =
+        `D-${String(days).padStart(3, "0")} ` +
+        `${String(hours).padStart(2, "0")}:` +
+        `${String(minutes).padStart(2, "0")}:` +
+        `${String(seconds).padStart(2, "0")}`;
+    }
+
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+
+    // copy account
+    document.querySelectorAll(".copy-btn").forEach((button) => {
+      button.addEventListener("click", async () => {
+        const targetId = button.dataset.copyTarget;
+        const target = document.getElementById(targetId);
+        if (!target) return;
+
+        const text = target.textContent.trim();
+
+        try {
+          await navigator.clipboard.writeText(text);
+          const originalText = button.textContent;
+          button.textContent = "복사되었습니다";
+          setTimeout(() => {
+            button.textContent = originalText;
+          }, 1500);
+        } catch (e) {
+          alert("복사에 실패했어요. 길게 눌러 직접 복사해 주세요.");
+        }
+      });
+    });
+
+    // gallery modal
+    const galleryModal = document.getElementById("galleryModal");
+    const galleryModalImage = document.getElementById("galleryModalImage");
+    const galleryModalClose = document.getElementById("galleryModalClose");
+    const galleryItems = document.querySelectorAll(".gallery-item");
+
+    function openGalleryModal(src) {
+      galleryModalImage.src = src;
+      galleryModal.classList.add("is-active");
+      galleryModal.setAttribute("aria-hidden", "false");
+      document.body.style.overflow = "hidden";
+    }
+
+    function closeGalleryModal() {
+      galleryModal.classList.remove("is-active");
+      galleryModal.setAttribute("aria-hidden", "true");
+      galleryModalImage.src = "";
+      document.body.style.overflow = "";
+    }
+
+    galleryItems.forEach((item) => {
+      item.addEventListener("click", () => {
+        openGalleryModal(item.dataset.image);
+      });
+    });
+
+    galleryModalClose.addEventListener("click", closeGalleryModal);
+
+    galleryModal.addEventListener("click", (e) => {
+      if (e.target === galleryModal) {
+        closeGalleryModal();
+      }
+    });
+
+    window.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") {
+        closeGalleryModal();
+      }
+    });
+  </script>
 </body>
 </html>
