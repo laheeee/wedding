@@ -17,8 +17,6 @@
 
 <main class="container">
 
-<!-- HERO -->
-
 <section class="hero" id="heroSection">
 
 <p class="hero-message">
@@ -58,56 +56,64 @@ Byungkwon & Lahee
 </section>
 
 
-<!-- INFO -->
-
 <section class="section">
 
-<h2>Wedding Information</h2>
+<h2 class="section-title">Wedding Information</h2>
 
-<p>
-더채플앳청담 6층 채플홀<br>
+<div class="info-box">
+
+<p class="info-line">
+더채플앳청담 6층 채플홀
+</p>
+
+<p class="info-line">
 2026년 12월 8일 화요일<br>
 오후 12시 30분
 </p>
 
 <p id="countdown">D-000 00:00:00</p>
 
-<a href="calendar/wedding.ics" class="calendar-btn" download>
-캘린더 저장
-</a>
+</div>
 
 </section>
 
 
-<!-- MESSAGE -->
-
 <section class="section">
 
-<h2>Invitation</h2>
+<h2 class="section-title">Invitation</h2>
 
-<p class="message">
+<div class="message-box">
+
+<p>
 서로 다른 길을 걸어온 두 사람이<br>
-같은 곳을 바라보며 함께 걷고자 합니다.<br><br>
-
-기쁠 때에도 어려운 날에도<br>
-서로에게 가장 다정한 사람이 되겠습니다.<br><br>
-
-저희의 새로운 시작이<br>
-따뜻한 축복 속에 더욱 빛날 수 있도록<br>
-
-소중한 걸음으로 함께해 주시면 감사하겠습니다.
+같은 곳을 바라보며 함께 걷고자 합니다.
 </p>
 
+<p>
+기쁠 때에도 어려운 날에도<br>
+서로에게 가장 다정한 사람이 되겠습니다.
+</p>
+
+<p>
+저희의 새로운 시작이<br>
+따뜻한 축복 속에 더욱 빛날 수 있도록
+</p>
+
+<p>
+소중한 걸음으로 함께해 주시면<br>
+큰 기쁨으로 간직하겠습니다.
+</p>
+
+</div>
+
 </section>
 
 
-<!-- GALLERY -->
-
 <section class="section">
 
-<h2>Gallery</h2>
+<h2 class="section-title">Gallery</h2>
 
-<div class="gallery">
+<div class="gallery-grid">
 
 <img src="images/gallery1.jpg">
 <img src="images/gallery2.jpg">
@@ -119,14 +125,15 @@ Byungkwon & Lahee
 </section>
 
 
-<!-- LOCATION -->
-
 <section class="section">
 
-<h2>Location</h2>
+<h2 class="section-title">Location</h2>
 
-<p>
-더채플앳청담<br>
+<div class="location-card">
+
+<p class="location-place">더채플앳청담</p>
+
+<p class="location-address">
 서울 강남구 선릉로 757
 </p>
 
@@ -142,28 +149,44 @@ Byungkwon & Lahee
 
 </div>
 
+</div>
+
 </section>
 
 
-<!-- ACCOUNT -->
-
 <section class="section">
 
-<h2>Account</h2>
+<h2 class="section-title">Account</h2>
 
-<div class="account">
+<div class="account-box">
 
-<p>신랑 병권</p>
-<p id="groomAcc">국민은행 123456-78-123456</p>
-<button onclick="copyAcc('groomAcc')">복사</button>
+<div class="account-item">
+
+<p class="account-name">신랑 병권</p>
+
+<p id="groomAcc" class="account-number">
+국민은행 123456-78-123456
+</p>
+
+<button class="copy-btn" onclick="copyAcc('groomAcc')">
+계좌 복사
+</button>
 
 </div>
 
-<div class="account">
+<div class="account-item">
 
-<p>신부 라희</p>
-<p id="brideAcc">신한은행 110-123-456789</p>
-<button onclick="copyAcc('brideAcc')">복사</button>
+<p class="account-name">신부 라희</p>
+
+<p id="brideAcc" class="account-number">
+신한은행 110-123-456789
+</p>
+
+<button class="copy-btn" onclick="copyAcc('brideAcc')">
+계좌 복사
+</button>
+
+</div>
 
 </div>
 
@@ -174,10 +197,8 @@ Byungkwon & Lahee
 
 <script>
 
-/* 봉투 애니메이션 */
-
-const hero = document.getElementById("heroSection")
-const envelope = document.getElementById("envelopeButton")
+const hero=document.getElementById("heroSection")
+const envelope=document.getElementById("envelopeButton")
 
 let open=false
 
@@ -198,33 +219,30 @@ render()
 window.onload=()=>{
 
 setTimeout(()=>{
-
 open=true
 render()
-
 },700)
 
 }
 
+/* countdown */
 
-/* DDAY */
-
-const target = new Date("2026-12-08T12:30:00+09:00")
-const countdown = document.getElementById("countdown")
+const target=new Date("2026-12-08T12:30:00+09:00")
+const countdown=document.getElementById("countdown")
 
 function update(){
 
-const now = new Date()
-const diff = target - now
+const now=new Date()
+const diff=target-now
 
-if(diff<0) return
+if(diff<0)return
 
-const d = Math.floor(diff/(1000*60*60*24))
-const h = Math.floor(diff/(1000*60*60)%24)
-const m = Math.floor(diff/(1000*60)%60)
-const s = Math.floor(diff/1000%60)
+const d=Math.floor(diff/(1000*60*60*24))
+const h=Math.floor(diff/(1000*60*60)%24)
+const m=Math.floor(diff/(1000*60)%60)
+const s=Math.floor(diff/1000%60)
 
-countdown.textContent =
+countdown.textContent=
 "D-"+String(d).padStart(3,"0")+" "+
 String(h).padStart(2,"0")+":"+
 String(m).padStart(2,"0")+":"+
@@ -234,9 +252,6 @@ String(s).padStart(2,"0")
 
 setInterval(update,1000)
 update()
-
-
-/* 계좌 복사 */
 
 function copyAcc(id){
 

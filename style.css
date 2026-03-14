@@ -2,21 +2,26 @@ body{
 margin:0;
 font-family:"Noto Sans KR",sans-serif;
 background:#ece9eb;
-text-align:center;
 color:#4d474c;
 }
 
 .container{
 max-width:480px;
 margin:auto;
-padding:20px;
+padding:0 18px 80px;
 }
 
 /* HERO */
 
+.hero{
+padding-top:30px;
+text-align:center;
+}
+
 .hero-message{
-margin:10px 0 80px;
+margin:10px 0 90px;
 font-size:17px;
+color:#6f6970;
 transition:.7s;
 }
 
@@ -26,18 +31,18 @@ opacity:0;
 }
 
 .hero-title{
-font-size:40px;
+font-size:42px;
 font-weight:700;
 transition:.7s;
 }
 
 .hero.open .hero-title{
-transform:translateY(-60px);
+transform:translateY(-70px);
 }
 
 .hero-date{
-font-size:30px;
-margin:30px 0;
+font-size:32px;
+margin:40px 0;
 transition:.5s;
 }
 
@@ -62,9 +67,9 @@ cursor:pointer;
 position:absolute;
 left:50%;
 bottom:20px;
-transform:translateX(-50%) translateY(80px);
-transition:.8s;
+transform:translateX(-50%) translateY(90px);
 opacity:0;
+transition:.8s;
 z-index:4;
 }
 
@@ -108,8 +113,6 @@ background:rgba(0,0,0,.2);
 transform:translateX(-50%);
 }
 
-/* flap */
-
 .envelope-flap{
 position:absolute;
 top:0;
@@ -126,8 +129,6 @@ z-index:5;
 .envelope-scene.open .envelope-flap{
 transform:rotateX(180deg);
 }
-
-/* front */
 
 .envelope-front{
 position:absolute;
@@ -165,26 +166,65 @@ z-index:7;
 
 .section{
 margin-top:80px;
+text-align:center;
 }
 
-.gallery{
+.section-title{
+margin-bottom:20px;
+font-size:17px;
+color:#6f6970;
+}
+
+.info-box,
+.message-box,
+.location-card,
+.account-box{
+background:white;
+padding:24px;
+border-radius:18px;
+box-shadow:0 6px 18px rgba(0,0,0,.08);
+}
+
+#countdown{
+font-size:24px;
+font-weight:700;
+margin-top:10px;
+}
+
+/* gallery */
+
+.gallery-grid{
 display:grid;
 grid-template-columns:1fr 1fr;
-gap:10px;
+gap:12px;
 }
 
-.gallery img{
+.gallery-grid img{
 width:100%;
+border-radius:12px;
 }
 
-.account{
+/* account */
+
+.account-item{
 margin-top:20px;
+}
+
+.copy-btn{
+margin-top:10px;
+padding:10px 16px;
+border-radius:20px;
+border:none;
+background:#4d474c;
+color:white;
+cursor:pointer;
 }
 
 .map-buttons a{
 display:inline-block;
-margin:5px;
+margin:6px;
 padding:10px 16px;
 background:white;
 border-radius:20px;
+box-shadow:0 4px 12px rgba(0,0,0,.1);
 }
