@@ -8,7 +8,6 @@
   --red: #c61f06;
   --red-dark: #9f1703;
   --red-light: #da2a10;
-  --red-soft: #e65234;
 
   --shadow-sm: 0 6px 18px rgba(0, 0, 0, 0.08);
   --shadow-md: 0 14px 30px rgba(0, 0, 0, 0.14);
@@ -155,22 +154,78 @@ a {
   border-radius: 18px;
 }
 
-/* PHOTO CARD */
-.photo-card {
+/* ENVELOPE */
+.envelope {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1.42 / 1;
+  z-index: 2;
+  filter: drop-shadow(0 10px 14px rgba(0, 0, 0, 0.14));
+  perspective: 1000px;
+}
+
+/* 봉투 뒷면 */
+.envelope-back {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, #d72608 0%, #b91b04 100%);
+  border-radius: 4px;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.envelope-back::before {
+  content: "";
   position: absolute;
   left: 50%;
-  bottom: 56px;
+  bottom: 0;
+  width: 1px;
+  height: 72%;
+  transform: translateX(-50%);
+  background: rgba(0, 0, 0, 0.14);
+}
+
+.envelope-back::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(to bottom, rgba(255,255,255,0.06), transparent 28%),
+    repeating-linear-gradient(
+      45deg,
+      rgba(255,255,255,0.02),
+      rgba(255,255,255,0.02) 2px,
+      transparent 2px,
+      transparent 4px
+    );
+}
+
+/* 사진이 들어가는 pocket */
+.envelope-pocket {
+  position: absolute;
+  left: 50%;
+  bottom: 64px;
   width: min(60vw, 220px);
-  transform: translateX(-50%) translateY(96px);
+  height: 250px;
+  transform: translateX(-50%);
+  overflow: hidden;
+  z-index: 2;
+}
+
+/* 실제 사진 카드 */
+.photo-card {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -128px;
   opacity: 0;
-  z-index: 6;
   transition:
-    transform 0.9s cubic-bezier(0.22, 0.8, 0.2, 1),
+    bottom 0.9s cubic-bezier(0.22, 0.8, 0.2, 1),
     opacity 0.5s ease;
 }
 
 .envelope-scene.is-open .photo-card {
-  transform: translateX(-50%) translateY(10px);
+  bottom: 0;
   opacity: 1;
 }
 
@@ -188,71 +243,19 @@ a {
   object-fit: cover;
 }
 
-/* ENVELOPE */
-.envelope {
-  position: relative;
-  width: 100%;
-  aspect-ratio: 1.42 / 1;
-  filter: drop-shadow(0 10px 14px rgba(0, 0, 0, 0.14));
-  z-index: 2;
-}
-
-.envelope-back {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(180deg, #d72608 0%, #bf1c04 100%);
-  border-radius: 2px;
-  overflow: hidden;
-}
-
-.envelope-back::before {
-  content: "";
-  position: absolute;
-  left: 50%;
-  bottom: 0;
-  width: 1px;
-  height: 72%;
-  transform: translateX(-50%);
-  background: rgba(0, 0, 0, 0.16);
-}
-
-.envelope-back::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background:
-    linear-gradient(to bottom, rgba(255, 255, 255, 0.06), transparent 28%),
-    repeating-linear-gradient(
-      45deg,
-      rgba(255, 255, 255, 0.02),
-      rgba(255, 255, 255, 0.02) 2px,
-      transparent 2px,
-      transparent 4px
-    );
-}
-
-.envelope-inner {
-  position: absolute;
-  left: 14%;
-  right: 14%;
-  top: 12%;
-  bottom: 14%;
-  background: #cb2207;
-  z-index: 1;
-}
-
+/* 윗뚜껑 */
 .envelope-flap {
   position: absolute;
   top: 0;
-  left: 50%;
-  width: 56%;
-  height: 26%;
-  transform: translateX(-50%);
+  left: 0;
+  width: 100%;
+  height: 54%;
+  background: linear-gradient(180deg, #d92a0e 0%, #c61f06 100%);
+  clip-path: polygon(0 0, 100% 0, 50% 100%);
   transform-origin: top center;
-  background: linear-gradient(180deg, #db2d10 0%, #c61f06 100%);
-  clip-path: polygon(50% 0%, 100% 100%, 0% 100%);
-  transition: transform 0.9s cubic-bezier(0.22, 0.8, 0.2, 1);
-  z-index: 7;
+  transition: transform 0.85s cubic-bezier(0.22, 0.8, 0.2, 1);
+  z-index: 5;
+  backface-visibility: hidden;
 }
 
 .envelope-flap::after {
@@ -260,69 +263,47 @@ a {
   position: absolute;
   inset: 0;
   background:
-    linear-gradient(to bottom, rgba(255, 255, 255, 0.1), transparent 36%),
-    linear-gradient(to top, rgba(0, 0, 0, 0.08), transparent 44%);
-}
-
-.flap-fold {
-  position: absolute;
-  bottom: 0;
-  width: 50%;
-  height: 100%;
-  opacity: 0.22;
-  background: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.22) 100%);
-}
-
-.flap-fold-left {
-  left: 0;
-  clip-path: polygon(0 0, 100% 100%, 0 100%);
-}
-
-.flap-fold-right {
-  right: 0;
-  clip-path: polygon(100% 0, 100% 100%, 0 100%);
+    linear-gradient(to bottom, rgba(255,255,255,0.10), transparent 36%),
+    linear-gradient(to top, rgba(0,0,0,0.08), transparent 44%);
 }
 
 .envelope-scene.is-open .envelope-flap {
-  transform: translateX(-50%) rotateX(180deg);
+  transform: rotateX(180deg);
 }
 
-.envelope-front {
-  position: absolute;
-  bottom: 0;
-}
-
+/* 앞면 좌우 */
 .envelope-front-left {
   position: absolute;
-  left: 0;
   bottom: 0;
+  left: 0;
   width: 50%;
-  height: 68%;
-  background: linear-gradient(135deg, #d92a0e 0%, #be1d05 100%);
-  clip-path: polygon(0 0, 100% 52%, 0 100%);
-  z-index: 8;
+  height: 70%;
+  background: #d62a0e;
+  clip-path: polygon(0 0, 100% 50%, 0 100%);
+  z-index: 6;
 }
 
 .envelope-front-right {
   position: absolute;
-  right: 0;
   bottom: 0;
+  right: 0;
   width: 50%;
-  height: 68%;
-  background: linear-gradient(225deg, #d92a0e 0%, #be1d05 100%);
-  clip-path: polygon(100% 0, 0 52%, 100% 100%);
-  z-index: 8;
+  height: 70%;
+  background: #d62a0e;
+  clip-path: polygon(100% 0, 0 50%, 100% 100%);
+  z-index: 6;
 }
 
+/* 앞면 아래 */
 .envelope-front-bottom {
   position: absolute;
-  left: 0;
   bottom: 0;
+  left: 0;
   width: 100%;
-  height: 62%;
-  background: linear-gradient(180deg, #cb2106 0%, #a91603 100%);
-  clip-path: polygon(0 0, 50% 74%, 100% 0, 100% 100%, 0 100%);
-  z-index: 9;
+  height: 65%;
+  background: #c61f06;
+  clip-path: polygon(0 0, 50% 75%, 100% 0, 100% 100%, 0 100%);
+  z-index: 7;
 }
 
 .tap-guide {
@@ -479,9 +460,9 @@ a {
   border-radius: var(--radius-md);
   border: 1px solid var(--line);
   background:
-    linear-gradient(rgba(255, 255, 255, 0.58), rgba(255, 255, 255, 0.58)),
+    linear-gradient(rgba(255,255,255,0.58), rgba(255,255,255,0.58)),
     url("images/map-placeholder.jpg") center/cover no-repeat;
-  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.16);
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,0.16);
 }
 
 .map-placeholder span {
@@ -492,7 +473,7 @@ a {
   height: 40px;
   padding: 0 16px;
   border-radius: 999px;
-  background: rgba(255, 255, 255, 0.86);
+  background: rgba(255,255,255,0.86);
   font-size: 14px;
   font-weight: 700;
 }
@@ -606,9 +587,10 @@ a {
     margin-bottom: 40px;
   }
 
-  .photo-card {
+  .envelope-pocket {
     width: min(68vw, 228px);
-    bottom: 64px;
+    height: 248px;
+    bottom: 60px;
   }
 
   #countdown {
