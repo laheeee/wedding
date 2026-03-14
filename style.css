@@ -113,20 +113,20 @@ a {
 
 .hero-title-small {
   display: block;
-  font-size: clamp(30px, 7.5vw, 52px);
+  font-size: clamp(24px, 6vw, 38px);
   font-weight: 700;
 }
 
 .hero-title-names {
   display: block;
   margin-top: 16px;
-  font-size: clamp(28px, 7.1vw, 48px);
+  font-size: clamp(22px, 5.8vw, 34px);
   font-weight: 700;
 }
 
 .hero-date {
   margin: 40px 0 44px;
-  font-size: clamp(24px, 6.2vw, 40px);
+  font-size: clamp(18px, 4.8vw, 28px);
   font-weight: 600;
   transition: opacity 0.55s ease, transform 0.55s ease;
 }
@@ -140,7 +140,7 @@ a {
 .envelope-scene {
   position: relative;
   width: 100%;
-  max-width: 364px;
+  max-width: 360px;
   margin: 0 auto;
   padding: 0;
   border: 0;
@@ -176,11 +176,12 @@ a {
 }
 
 .photo-frame {
-  background: var(--white);
-  padding: 12px 12px 28px;
+  /*!background: var(--white); */
+  background: #fff;
+  padding: 12px 12px 32px;
   box-shadow:
-    0 16px 28px rgba(0, 0, 0, 0.18),
-    0 4px 8px rgba(0, 0, 0, 0.08);
+    0 12px 26px rgba(0, 0, 0, 0.15),
+    0 3px 8px rgba(0, 0, 0, 0.07);
 }
 
 .photo-frame img {
