@@ -9,7 +9,6 @@
   --red-dark: #9f1703;
   --red-light: #da2a10;
   --red-soft: #e65234;
-  --paper-shadow: rgba(0, 0, 0, 0.14);
 
   --shadow-sm: 0 6px 18px rgba(0, 0, 0, 0.08);
   --shadow-md: 0 14px 30px rgba(0, 0, 0, 0.14);
@@ -108,12 +107,12 @@ a {
 }
 
 .hero.section.open .hero-title {
-  transform: translateY(-56px);
+  transform: translateY(-50px);
 }
 
 .hero-title-small {
   display: block;
-  font-size: clamp(22px, 5.8vw, 34px);
+  font-size: clamp(24px, 6vw, 38px);
   font-weight: 700;
 }
 
@@ -125,7 +124,7 @@ a {
 }
 
 .hero-date {
-  margin: 40px 0 44px;
+  margin: 36px 0 42px;
   font-size: clamp(18px, 4.8vw, 28px);
   font-weight: 600;
   transition: opacity 0.55s ease, transform 0.55s ease;
@@ -136,7 +135,7 @@ a {
   transform: translateY(12px);
 }
 
-/* ENVELOPE */
+/* ENVELOPE WRAP */
 .envelope-scene {
   position: relative;
   width: 100%;
@@ -156,13 +155,13 @@ a {
   border-radius: 18px;
 }
 
-/* PHOTO */
+/* PHOTO CARD */
 .photo-card {
   position: absolute;
   left: 50%;
-  bottom: 96px;
-  width: min(62vw, 232px);
-  transform: translateX(-50%) translateY(88px);
+  bottom: 56px;
+  width: min(60vw, 220px);
+  transform: translateX(-50%) translateY(96px);
   opacity: 0;
   z-index: 6;
   transition:
@@ -171,14 +170,13 @@ a {
 }
 
 .envelope-scene.is-open .photo-card {
-  transform: translateX(-50%) translateY(-8px);
+  transform: translateX(-50%) translateY(10px);
   opacity: 1;
 }
 
 .photo-frame {
-  /*!background: var(--white); */
   background: #fff;
-  padding: 12px 12px 32px;
+  padding: 12px 12px 34px;
   box-shadow:
     0 10px 24px rgba(0, 0, 0, 0.16),
     0 2px 6px rgba(0, 0, 0, 0.08);
@@ -186,7 +184,6 @@ a {
 
 .photo-frame img {
   width: 100%;
-  /*aspect-ratio: 1 / 1.08;*/
   aspect-ratio: 1 / 1;
   object-fit: cover;
 }
@@ -195,7 +192,7 @@ a {
 .envelope {
   position: relative;
   width: 100%;
-  aspect-ratio: 1.38 / 1;
+  aspect-ratio: 1.42 / 1;
   filter: drop-shadow(0 10px 14px rgba(0, 0, 0, 0.14));
   z-index: 2;
 }
@@ -203,8 +200,7 @@ a {
 .envelope-back {
   position: absolute;
   inset: 0;
-  background:
-    linear-gradient(180deg, #d72608 0%, #bf1c04 100%);
+  background: linear-gradient(180deg, #d72608 0%, #bf1c04 100%);
   border-radius: 2px;
   overflow: hidden;
 }
@@ -217,7 +213,7 @@ a {
   width: 1px;
   height: 72%;
   transform: translateX(-50%);
-  background: rgba(0, 0, 0, 0.18);
+  background: rgba(0, 0, 0, 0.16);
 }
 
 .envelope-back::after {
@@ -225,24 +221,23 @@ a {
   position: absolute;
   inset: 0;
   background:
-    linear-gradient(to bottom, rgba(255,255,255,0.08), transparent 28%),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.06), transparent 28%),
     repeating-linear-gradient(
       45deg,
-      rgba(255,255,255,0.025),
-      rgba(255,255,255,0.025) 2px,
+      rgba(255, 255, 255, 0.02),
+      rgba(255, 255, 255, 0.02) 2px,
       transparent 2px,
       transparent 4px
     );
-  mix-blend-mode: screen;
 }
 
 .envelope-inner {
   position: absolute;
   left: 14%;
   right: 14%;
-  top: 16%;
-  bottom: 16%;
-  background: #cf2207;
+  top: 12%;
+  bottom: 14%;
+  background: #cb2207;
   z-index: 1;
 }
 
@@ -250,7 +245,7 @@ a {
   position: absolute;
   top: 0;
   left: 50%;
-  width: 54%;
+  width: 56%;
   height: 26%;
   transform: translateX(-50%);
   transform-origin: top center;
@@ -265,8 +260,8 @@ a {
   position: absolute;
   inset: 0;
   background:
-    linear-gradient(to bottom, rgba(255,255,255,0.12), transparent 36%),
-    linear-gradient(to top, rgba(0,0,0,0.08), transparent 44%);
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.1), transparent 36%),
+    linear-gradient(to top, rgba(0, 0, 0, 0.08), transparent 44%);
 }
 
 .flap-fold {
@@ -274,8 +269,8 @@ a {
   bottom: 0;
   width: 50%;
   height: 100%;
-  opacity: 0.24;
-  background: linear-gradient(180deg, transparent 0%, rgba(0,0,0,0.22) 100%);
+  opacity: 0.22;
+  background: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.22) 100%);
 }
 
 .flap-fold-left {
@@ -289,7 +284,7 @@ a {
 }
 
 .envelope-scene.is-open .envelope-flap {
-  transform: translateX(-50%) rotate(180deg);
+  transform: translateX(-50%) rotateX(180deg);
 }
 
 .envelope-front {
@@ -297,20 +292,12 @@ a {
   bottom: 0;
 }
 
-.envelope-front-left,
-.envelope-front-right {
-  width: 50%;
-  height: 68%;
-  background: linear-gradient(160deg, #de391a, #be1e06);
-  z-index: 8;
-}
-
 .envelope-front-left {
   position: absolute;
   left: 0;
   bottom: 0;
   width: 50%;
-  height: 62%;
+  height: 68%;
   background: linear-gradient(135deg, #d92a0e 0%, #be1d05 100%);
   clip-path: polygon(0 0, 100% 52%, 0 100%);
   z-index: 8;
@@ -321,21 +308,20 @@ a {
   right: 0;
   bottom: 0;
   width: 50%;
-  height: 62%;
+  height: 68%;
   background: linear-gradient(225deg, #d92a0e 0%, #be1d05 100%);
   clip-path: polygon(100% 0, 0 52%, 100% 100%);
   z-index: 8;
 }
 
 .envelope-front-bottom {
-  position: relative;
+  position: absolute;
   left: 0;
   bottom: 0;
   width: 100%;
-  height: 60%;
-  background:
-    linear-gradient(180deg, #cb2106 0%, #a91603 100%);
-  clip-path: polygon(0 0, 50% 72%, 100% 0, 100% 100%, 0 100%);
+  height: 62%;
+  background: linear-gradient(180deg, #cb2106 0%, #a91603 100%);
+  clip-path: polygon(0 0, 50% 74%, 100% 0, 100% 100%, 0 100%);
   z-index: 9;
 }
 
@@ -493,9 +479,9 @@ a {
   border-radius: var(--radius-md);
   border: 1px solid var(--line);
   background:
-    linear-gradient(rgba(255,255,255,0.58), rgba(255,255,255,0.58)),
+    linear-gradient(rgba(255, 255, 255, 0.58), rgba(255, 255, 255, 0.58)),
     url("images/map-placeholder.jpg") center/cover no-repeat;
-  box-shadow: inset 0 0 0 1px rgba(255,255,255,0.16);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.16);
 }
 
 .map-placeholder span {
@@ -506,7 +492,7 @@ a {
   height: 40px;
   padding: 0 16px;
   border-radius: 999px;
-  background: rgba(255,255,255,0.86);
+  background: rgba(255, 255, 255, 0.86);
   font-size: 14px;
   font-weight: 700;
 }
@@ -613,7 +599,7 @@ a {
   }
 
   .hero.section.open .hero-title {
-    transform: translateY(-48px);
+    transform: translateY(-42px);
   }
 
   .hero-date {
@@ -621,8 +607,8 @@ a {
   }
 
   .photo-card {
-    width: min(82vw, 278px);
-    bottom: 30px;
+    width: min(68vw, 228px);
+    bottom: 64px;
   }
 
   #countdown {
