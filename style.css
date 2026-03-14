@@ -160,14 +160,14 @@ a {
 .photo-card {
   position: absolute;
   left: 50%;
-  bottom: 34px;
-  width: min(80vw, 292px);
-  transform: translateX(-50%) translateY(112px);
+  bottom: 78px;
+  width: min(66vw, 250px);
+  transform: translateX(-50%) translateY(92px);
   opacity: 0;
-  z-index: 4;
+  z-index: 6;
   transition:
-    transform 0.9s cubic-bezier(0.2, 0.8, 0.2, 1),
-    opacity 0.55s ease;
+    transform 0.9s cubic-bezier(0.22, 0.8, 0.2, 1),
+    opacity 0.5s ease;
 }
 
 .envelope-scene.is-open .photo-card {
@@ -185,7 +185,9 @@ a {
 }
 
 .photo-frame img {
-  aspect-ratio: 4 / 5;
+  width: 100%;
+  /*aspect-ratio: 1 / 1.08;*/
+  aspect-ratio: 1 / 1;
   object-fit: cover;
 }
 
@@ -193,8 +195,8 @@ a {
 .envelope {
   position: relative;
   width: 100%;
-  aspect-ratio: 1.42 / 1;
-  filter: drop-shadow(0 12px 14px rgba(0, 0, 0, 0.16));
+  aspect-ratio: 1.38 / 1;
+  filter: drop-shadow(0 10px 14px rgba(0, 0, 0, 0.14));
   z-index: 2;
 }
 
@@ -202,8 +204,8 @@ a {
   position: absolute;
   inset: 0;
   background:
-    linear-gradient(160deg, #da3416 0%, #bb1d05 58%, #9d1604 100%);
-  border-radius: 4px 4px 8px 8px;
+    linear-gradient(180deg, #d72608 0%, #bf1c04 100%);
+  border-radius: 2px;
   overflow: hidden;
 }
 
@@ -236,28 +238,26 @@ a {
 
 .envelope-inner {
   position: absolute;
-  left: 9%;
-  right: 9%;
-  bottom: 14%;
-  height: 60%;
-  background: linear-gradient(180deg, rgba(255,255,255,0.2), rgba(255,255,255,0.03));
-  border-radius: 2px;
+  left: 14%;
+  right: 14%;
+  top: 16%;
+  bottom: 16%;
+  background: #cf2207;
   z-index: 1;
 }
 
 .envelope-flap {
   position: absolute;
   top: 0;
-  left: 0;
-  width: 100%;
-  height: 56%;
-  background: linear-gradient(180deg, var(--red-soft), var(--red));
-  clip-path: polygon(0 0, 100% 0, 50% 100%);
+  left: 50%;
+  width: 54%;
+  height: 26%;
+  transform: translateX(-50%);
   transform-origin: top center;
-  transform-style: preserve-3d;
-  transition: transform 0.9s cubic-bezier(0.2, 0.8, 0.2, 1);
+  background: linear-gradient(180deg, #db2d10 0%, #c61f06 100%);
+  clip-path: polygon(50% 0%, 100% 100%, 0% 100%);
+  transition: transform 0.9s cubic-bezier(0.22, 0.8, 0.2, 1);
   z-index: 7;
-  overflow: hidden;
 }
 
 .envelope-flap::after {
@@ -289,7 +289,7 @@ a {
 }
 
 .envelope-scene.is-open .envelope-flap {
-  transform: rotateX(180deg);
+  transform: translateX(-50%) rotate(180deg);
 }
 
 .envelope-front {
@@ -306,28 +306,37 @@ a {
 }
 
 .envelope-front-left {
+  position: absolute;
   left: 0;
-  clip-path: polygon(0 0, 100% 50%, 0 100%);
-  box-shadow: inset -10px 0 14px rgba(255,255,255,0.06);
+  bottom: 0;
+  width: 50%;
+  height: 62%;
+  background: linear-gradient(135deg, #d92a0e 0%, #be1d05 100%);
+  clip-path: polygon(0 0, 100% 52%, 0 100%);
+  z-index: 8;
 }
 
 .envelope-front-right {
+  position: absolute;
   right: 0;
-  clip-path: polygon(100% 0, 0 50%, 100% 100%);
-  box-shadow: inset 10px 0 14px rgba(255,255,255,0.06);
+  bottom: 0;
+  width: 50%;
+  height: 62%;
+  background: linear-gradient(225deg, #d92a0e 0%, #be1d05 100%);
+  clip-path: polygon(100% 0, 0 52%, 100% 100%);
+  z-index: 8;
 }
 
 .envelope-front-bottom {
+  position: relative;
   left: 0;
+  bottom: 0;
   width: 100%;
   height: 58%;
   background:
-    linear-gradient(180deg, #cb2106 0%, #a91603 100%);
-  clip-path: polygon(0 0, 50% 72%, 100% 0, 100% 100%, 0 100%);
+    linear-gradient(180deg, #cf2207 0%, #af1703 100%);
+  clip-path: polygon(0 0, 50% 74%, 100% 0, 100% 100%, 0 100%);
   z-index: 9;
-  box-shadow:
-    inset 0 10px 14px rgba(255,255,255,0.05),
-    inset 0 -8px 14px rgba(0,0,0,0.08);
 }
 
 .tap-guide {
