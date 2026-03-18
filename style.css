@@ -1,18 +1,20 @@
 :root {
-  --bg: #ece9eb;
-  --text: #4d474c;
-  --muted: #6f6970;
-  --line: rgba(77, 71, 76, 0.12);
+  --bg: #d8d0c1;
+  --bg-soft: #e6dfd2;
+  --paper: #f6f0e6;
+  --paper-edge: #e8dece;
+  --envelope: #dbe6f1;
+  --envelope-deep: #cedcea;
+  --envelope-line: #b6c6d7;
+  --text: #596271;
+  --muted: #7b8592;
+  --line: rgba(89, 98, 113, 0.14);
   --white: #ffffff;
 
-  --red: #c61f06;
-  --red-dark: #9f1703;
-  --red-light: #da2a10;
+  --shadow-sm: 0 8px 18px rgba(84, 76, 63, 0.08);
+  --shadow-md: 0 18px 34px rgba(84, 76, 63, 0.14);
 
-  --shadow-sm: 0 6px 18px rgba(0, 0, 0, 0.08);
-  --shadow-md: 0 14px 30px rgba(0, 0, 0, 0.14);
-
-  --radius-lg: 22px;
+  --radius-lg: 24px;
   --radius-md: 16px;
 }
 
@@ -31,7 +33,11 @@ body {
 }
 
 body {
-  background: var(--bg);
+  background:
+    radial-gradient(circle at 20% 15%, rgba(255, 255, 255, 0.18) 0 1px, transparent 1px 100%),
+    radial-gradient(circle at 80% 32%, rgba(255, 255, 255, 0.10) 0 1px, transparent 1px 100%),
+    linear-gradient(180deg, var(--bg-soft) 0%, var(--bg) 100%);
+  background-size: 180px 180px, 220px 220px, auto;
   color: var(--text);
   font-family: "Noto Sans KR", sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -69,63 +75,73 @@ a {
 
 .section-title {
   margin: 0 0 20px;
-  font-size: 17px;
-  font-weight: 700;
-  letter-spacing: 0.04em;
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
   text-align: center;
   color: var(--muted);
+  text-transform: uppercase;
 }
 
 /* HERO */
 .hero {
-  padding-top: 30px;
+  padding-top: 32px;
   text-align: center;
   position: relative;
 }
 
 .hero-message {
-  margin: 8px 0 92px;
-  font-size: 17px;
-  line-height: 1.75;
-  font-weight: 500;
+  margin: 8px 0 88px;
+  font-size: 16px;
+  line-height: 1.9;
+  font-weight: 400;
   color: var(--muted);
   letter-spacing: -0.02em;
   transition: transform 0.8s ease, opacity 0.8s ease;
 }
 
 .hero.section.open .hero-message {
-  transform: translateY(-34px);
+  transform: translateY(-30px);
   opacity: 0;
 }
 
 .hero-title {
   margin: 0;
-  line-height: 1.18;
-  letter-spacing: -0.03em;
+  line-height: 1.06;
+  letter-spacing: -0.02em;
   transition: transform 0.8s ease;
 }
 
 .hero.section.open .hero-title {
-  transform: translateY(-50px);
+  transform: translateY(-48px);
 }
 
 .hero-title-small {
   display: block;
-  font-size: clamp(22px, 5.8vw, 34px);
-  font-weight: 700;
+  font-family: "Cormorant Garamond", serif;
+  font-size: clamp(27px, 6.6vw, 40px);
+  font-weight: 400;
+  color: var(--muted);
+  letter-spacing: 0.04em;
 }
 
 .hero-title-names {
   display: block;
-  margin-top: 16px;
-  font-size: clamp(22px, 5.8vw, 34px);
-  font-weight: 700;
+  margin-top: 14px;
+  font-family: "Cormorant Garamond", serif;
+  font-size: clamp(28px, 7vw, 42px);
+  font-weight: 500;
+  color: var(--text);
+  letter-spacing: 0.02em;
 }
 
 .hero-date {
-  margin: 36px 0 42px;
-  font-size: clamp(18px, 4.8vw, 28px);
-  font-weight: 600;
+  margin: 30px 0 44px;
+  font-family: "Cormorant Garamond", serif;
+  font-size: clamp(20px, 5vw, 30px);
+  font-weight: 500;
+  color: var(--muted);
+  letter-spacing: 0.1em;
   transition: opacity 0.55s ease, transform 0.55s ease;
 }
 
@@ -138,7 +154,7 @@ a {
 .envelope-scene {
   position: relative;
   width: 100%;
-  max-width: 360px;
+  max-width: 368px;
   margin: 0 auto;
   padding: 0;
   border: 0;
@@ -149,7 +165,7 @@ a {
 }
 
 .envelope-scene:focus-visible {
-  outline: 2px solid rgba(77, 71, 76, 0.22);
+  outline: 2px solid rgba(89, 98, 113, 0.22);
   outline-offset: 6px;
   border-radius: 18px;
 }
@@ -158,55 +174,33 @@ a {
 .envelope {
   position: relative;
   width: 100%;
-  aspect-ratio: 1.42 / 1;
+  aspect-ratio: 1.1 / 1;
   z-index: 2;
-  filter: drop-shadow(0 10px 14px rgba(0, 0, 0, 0.14));
-  perspective: 1000px;
+  filter: drop-shadow(0 12px 18px rgba(86, 79, 68, 0.16));
 }
 
-/* 봉투 뒷면 */
-.envelope-back {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(180deg, #d72608 0%, #b91b04 100%);
-  border-radius: 4px;
-  overflow: hidden;
-  z-index: 1;
-}
-
-.envelope-back::before {
-  content: "";
+/* 뒤쪽 윗플랩 */
+.envelope-back-flap {
   position: absolute;
   left: 50%;
-  bottom: 0;
-  width: 1px;
-  height: 72%;
+  top: 6%;
+  width: 58%;
+  height: 30%;
   transform: translateX(-50%);
-  background: rgba(0, 0, 0, 0.14);
-}
-
-.envelope-back::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background:
-    linear-gradient(to bottom, rgba(255,255,255,0.06), transparent 28%),
-    repeating-linear-gradient(
-      45deg,
-      rgba(255,255,255,0.02),
-      rgba(255,255,255,0.02) 2px,
-      transparent 2px,
-      transparent 4px
-    );
+  background: linear-gradient(180deg, #dce8f3 0%, #cad8e6 100%);
+  clip-path: polygon(50% 0, 100% 100%, 0 100%);
+  border-radius: 2px;
+  z-index: 1;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.52);
 }
 
 /* 사진이 들어가는 pocket */
 .envelope-pocket {
   position: absolute;
   left: 50%;
-  bottom: 64px;
-  width: min(60vw, 220px);
-  height: 250px;
+  bottom: 86px;
+  width: min(64vw, 228px);
+  height: 280px;
   transform: translateX(-50%);
   overflow: hidden;
   z-index: 2;
@@ -217,11 +211,11 @@ a {
   position: absolute;
   left: 0;
   right: 0;
-  bottom: -128px;
+  bottom: -146px;
   opacity: 0;
   transition:
-    bottom 0.9s cubic-bezier(0.22, 0.8, 0.2, 1),
-    opacity 0.5s ease;
+    bottom 0.95s cubic-bezier(0.22, 0.8, 0.2, 1),
+    opacity 0.52s ease;
 }
 
 .envelope-scene.is-open .photo-card {
@@ -230,88 +224,110 @@ a {
 }
 
 .photo-frame {
-  background: #fff;
-  padding: 12px 12px 34px;
+  position: relative;
+  background:
+    linear-gradient(180deg, rgba(255,255,255,0.58), rgba(255,255,255,0.18)),
+    var(--paper);
+  padding: 12px 12px 30px;
+  border: 1px solid rgba(143, 135, 120, 0.10);
   box-shadow:
-    0 10px 24px rgba(0, 0, 0, 0.16),
-    0 2px 6px rgba(0, 0, 0, 0.08);
+    0 12px 24px rgba(84, 76, 63, 0.12),
+    0 2px 4px rgba(84, 76, 63, 0.06);
 }
 
-.photo-frame img {
-  width: 100%;
-  aspect-ratio: 1 / 1;
-  object-fit: cover;
-}
-
-/* 윗뚜껑 */
-.envelope-flap {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 54%;
-  background: linear-gradient(180deg, #d92a0e 0%, #c61f06 100%);
-  clip-path: polygon(0 0, 100% 0, 50% 100%);
-  transform-origin: top center;
-  transition: transform 0.85s cubic-bezier(0.22, 0.8, 0.2, 1);
-  z-index: 5;
-  backface-visibility: hidden;
-}
-
-.envelope-flap::after {
+.photo-frame::after {
   content: "";
   position: absolute;
   inset: 0;
   background:
-    linear-gradient(to bottom, rgba(255,255,255,0.10), transparent 36%),
-    linear-gradient(to top, rgba(0,0,0,0.08), transparent 44%);
+    linear-gradient(rgba(255,255,255,0.08), rgba(255,255,255,0.01));
+  pointer-events: none;
 }
 
-.envelope-scene.is-open .envelope-flap {
-  transform: rotateX(180deg);
+.photo-frame img {
+  width: 100%;
+  aspect-ratio: 1 / 1.18;
+  object-fit: cover;
 }
 
-/* 앞면 좌우 */
-.envelope-front-left {
+/* 봉투 앞면 공통 */
+.envelope-front {
   position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 50%;
-  height: 70%;
-  background: #d62a0e;
-  clip-path: polygon(0 0, 100% 50%, 0 100%);
-  z-index: 6;
+  inset: 0;
+  z-index: 5;
+  pointer-events: none;
 }
 
+/* 좌우 플랩 */
+.envelope-front-left,
 .envelope-front-right {
   position: absolute;
   bottom: 0;
-  right: 0;
   width: 50%;
-  height: 70%;
-  background: #d62a0e;
-  clip-path: polygon(100% 0, 0 50%, 100% 100%);
-  z-index: 6;
+  height: 78%;
+  background: linear-gradient(180deg, #deebf5 0%, #d4e1ec 100%);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.55);
 }
 
-/* 앞면 아래 */
+.envelope-front-left {
+  left: 0;
+  clip-path: polygon(0 0, 100% 48%, 0 100%);
+  border-left: 1px solid rgba(125, 138, 154, 0.16);
+}
+
+.envelope-front-right {
+  right: 0;
+  clip-path: polygon(100% 0, 0 48%, 100% 100%);
+  border-right: 1px solid rgba(125, 138, 154, 0.16);
+}
+
+/* 앞면 메인 */
 .envelope-front-bottom {
   position: absolute;
-  bottom: 0;
   left: 0;
+  bottom: 0;
   width: 100%;
-  height: 65%;
-  background: #c61f06;
-  clip-path: polygon(0 0, 50% 75%, 100% 0, 100% 100%, 0 100%);
-  z-index: 7;
+  height: 72%;
+  background: linear-gradient(180deg, var(--envelope) 0%, var(--envelope-deep) 100%);
+  clip-path: polygon(0 0, 50% 56%, 100% 0, 100% 100%, 0 100%);
+  border: 1px solid rgba(125, 138, 154, 0.16);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.55),
+    0 2px 4px rgba(84, 76, 63, 0.04);
+}
+
+.envelope-front-bottom::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(to bottom, rgba(255,255,255,0.14), transparent 30%),
+    linear-gradient(to top, rgba(120, 132, 146, 0.05), transparent 40%);
+  pointer-events: none;
+}
+
+.envelope-label {
+  position: absolute;
+  left: 50%;
+  bottom: 20px;
+  transform: translateX(-50%);
+  z-index: 6;
+  font-family: "Cormorant Garamond", serif;
+  font-size: 20px;
+  font-style: italic;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  color: rgba(255, 255, 255, 0.9);
+  pointer-events: none;
 }
 
 .tap-guide {
   display: inline-block;
-  margin-top: 16px;
-  font-size: 14px;
+  margin-top: 18px;
+  font-size: 13px;
   color: var(--muted);
-  letter-spacing: 0.01em;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
 }
 
 /* COMMON CARDS */
@@ -319,7 +335,7 @@ a {
 .message-box,
 .location-card,
 .account-accordion {
-  background: rgba(255, 255, 255, 0.56);
+  background: rgba(255, 250, 245, 0.60);
   border: 1px solid var(--line);
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-sm);
@@ -334,7 +350,7 @@ a {
 
 .info-line {
   margin: 0;
-  font-size: 17px;
+  font-size: 16px;
   line-height: 1.9;
 }
 
@@ -343,29 +359,33 @@ a {
 }
 
 .dday-label {
-  font-size: 14px;
+  font-size: 13px;
   color: var(--muted);
+  letter-spacing: 0.04em;
 }
 
 #countdown {
   display: inline-block;
   margin-top: 8px;
-  font-size: 24px;
-  font-weight: 700;
-  letter-spacing: 0.03em;
+  font-family: "Cormorant Garamond", serif;
+  font-size: 30px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  color: var(--text);
 }
 
 /* MESSAGE */
 .message-box {
-  padding: 28px 20px;
+  padding: 30px 22px;
   text-align: center;
 }
 
 .message-box p {
   margin: 0;
-  font-size: 16px;
-  line-height: 2;
+  font-size: 15px;
+  line-height: 2.05;
   word-break: keep-all;
+  color: var(--text);
 }
 
 .message-box p + p {
@@ -401,7 +421,7 @@ a {
   align-items: center;
   justify-content: center;
   padding: 20px;
-  background: rgba(0, 0, 0, 0.84);
+  background: rgba(36, 39, 46, 0.88);
   z-index: 100;
 }
 
@@ -460,7 +480,7 @@ a {
   border-radius: var(--radius-md);
   border: 1px solid var(--line);
   background:
-    linear-gradient(rgba(255,255,255,0.58), rgba(255,255,255,0.58)),
+    linear-gradient(rgba(255,250,245,0.60), rgba(255,250,245,0.60)),
     url("images/map-placeholder.jpg") center/cover no-repeat;
   box-shadow: inset 0 0 0 1px rgba(255,255,255,0.16);
 }
@@ -476,6 +496,7 @@ a {
   background: rgba(255,255,255,0.86);
   font-size: 14px;
   font-weight: 700;
+  color: var(--text);
 }
 
 .map-buttons {
@@ -491,11 +512,12 @@ a {
   min-height: 44px;
   padding: 0 10px;
   border-radius: 999px;
-  background: var(--white);
+  background: rgba(255,255,255,0.82);
   border: 1px solid var(--line);
   box-shadow: var(--shadow-sm);
   font-size: 14px;
   font-weight: 600;
+  color: var(--text);
 }
 
 /* ACCOUNT */
@@ -545,7 +567,7 @@ a {
 
 .account-name {
   margin: 0 0 8px;
-  font-size: 20px;
+  font-size: 19px;
   font-weight: 700;
 }
 
@@ -566,6 +588,7 @@ a {
   font-size: 14px;
   font-weight: 600;
   cursor: pointer;
+  box-shadow: var(--shadow-sm);
 }
 
 @media (max-width: 390px) {
@@ -575,12 +598,12 @@ a {
   }
 
   .hero-message {
-    margin-bottom: 84px;
-    font-size: 16px;
+    margin-bottom: 78px;
+    font-size: 15px;
   }
 
   .hero.section.open .hero-title {
-    transform: translateY(-42px);
+    transform: translateY(-40px);
   }
 
   .hero-date {
@@ -588,13 +611,18 @@ a {
   }
 
   .envelope-pocket {
-    width: min(68vw, 228px);
-    height: 248px;
-    bottom: 60px;
+    width: min(70vw, 230px);
+    height: 270px;
+    bottom: 82px;
+  }
+
+  .envelope-label {
+    font-size: 18px;
+    bottom: 18px;
   }
 
   #countdown {
-    font-size: 21px;
+    font-size: 26px;
   }
 
   .map-buttons {
