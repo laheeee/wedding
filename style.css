@@ -1,0 +1,794 @@
+@font-face {
+  font-family: 'D2Coding';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_two@1.0/D2Coding.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+:root {
+  --bg: #ffffff;
+  --text: #171717;
+  --subtext: #767676;
+  --line: #ececec;
+  --line-dark: #d8d8d8;
+  --soft: #f8f8f8;
+  --shadow-soft: 0 12px 28px rgba(0, 0, 0, 0.05);
+  --modal-bg: rgba(250, 248, 245, 0.92);
+}
+
+* {
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+*:focus {
+  outline: none !important;
+}
+
+input,
+textarea {
+  -webkit-user-select: text;
+  -moz-user-select: text;
+  -ms-user-select: text;
+  user-select: text;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: "Noto Sans KR", -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+body.modal-open {
+  overflow: hidden;
+}
+
+img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+a,
+button,
+details,
+summary {
+  -webkit-tap-highlight-color: rgba(0,0,0,0) !important;
+  tap-highlight-color: rgba(0,0,0,0) !important;
+  outline: none !important;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.invitation-page {
+  width: 100%;
+  overflow-x: hidden;
+}
+
+section {
+  padding-left: 22px;
+  padding-right: 22px;
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+/* 첫 번째 섹션은 바로 표시 */
+section:first-child {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+section.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* HERO */
+.hero-intro {
+  padding-top: 68px;
+  padding-bottom: 68px;
+  text-align: center;
+}
+
+.intro-text {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.intro-text p {
+  margin: 0;
+  font-family: "Courier Prime", monospace;
+  font-size: 13px;
+  line-height: 1.65;
+  letter-spacing: 1.35px;
+  color: #2a2a2a;
+}
+
+/* PAPER */
+.paper-card-section {
+  padding-top: 6px;
+  padding-bottom: 180px;
+  display: flex;
+  justify-content: center;
+}
+
+.paper-card-placeholder {
+  width: 100%;
+  max-width: 360px;
+  aspect-ratio: 3 / 4.15;
+  border: 1px dashed #cccccc;
+  background: linear-gradient(180deg, #fbfbfb 0%, #f6f6f6 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 22px;
+}
+
+.placeholder-label {
+  font-family: "Courier Prime", monospace;
+  font-size: 12px;
+  line-height: 1.8;
+  letter-spacing: 1px;
+  color: #9a9a9a;
+  text-align: center;
+}
+
+.paper-invite-image {
+  width: 100%;
+  max-width: 360px;
+  display: block;
+}
+
+/* D-DAY */
+.dday-section {
+  padding-top: 60px;
+  padding-bottom: 60px;
+  text-align: center;
+}
+
+.dday-title {
+  margin: 0 0 14px;
+  font-family: "Courier Prime", monospace;
+  font-size: 14px;
+  line-height: 1;
+  letter-spacing: 2.4px;
+  color: #2b2b2b;
+}
+
+.dday-inline {
+  display: inline-block;
+  margin: 0;
+  padding: 0;
+  font-family: "Noto Sans KR", sans-serif;
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 1.2;
+  letter-spacing: 0.35px;
+  color: #101010;
+}
+
+/* POEM */
+.poem-section {
+  padding-top: 180px;
+  padding-bottom: 88px;
+}
+
+.poem-inner {
+  max-width: 410px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+/* INVITATION MESSAGE */
+.invitation-section {
+  padding-top: 42px;
+  padding-bottom: 112px;
+}
+
+.invitation-inner {
+  max-width: 410px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.poem-block,
+.invite-text {
+  color: #222222;
+}
+
+.poem-block p,
+.invite-text p {
+  margin: 0;
+  font-family: "Noto Sans KR", sans-serif;
+  font-size: 13.5px;
+  font-weight: 400;
+  line-height: 1.74;
+  letter-spacing: -0.18px;
+}
+
+.poem-block {
+  margin-bottom: 34px;
+  position: relative;
+  z-index: 1;
+}
+
+.poem-block::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 95%;
+  height: 110%;
+  background: radial-gradient(ellipse at center,
+    rgba(173, 216, 230, 0.3) 0%,
+    rgba(173, 216, 230, 0.2) 40%,
+    rgba(173, 216, 230, 0.08) 70%,
+    transparent 100%);
+  border-radius: 50%;
+  z-index: -1;
+  filter: blur(10px);
+}
+
+.poem-source {
+  margin-top: 14px !important;
+  font-size: 13px !important;
+  line-height: 1.55 !important;
+  color: var(--subtext);
+}
+
+.message-gap {
+  height: 14px;
+}
+
+/* SECTION TITLE */
+.section-heading {
+  text-align: center;
+  margin-bottom: 22px;
+}
+
+.section-eyebrow {
+  margin: 0;
+  font-family: "Courier Prime", monospace;
+  font-size: 14px;
+  line-height: 1.2;
+  letter-spacing: 1.8px;
+  color: #2b2b2b;
+}
+
+/* WEDDING GRID GALLERY */
+.gallery-section {
+  padding-top: 140px;
+  padding-bottom: 92px;
+}
+
+.gallery-pages {
+  display: flex;
+  overflow-x: auto;
+  gap: 16px;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  padding-bottom: 8px;
+}
+
+.gallery-pages::-webkit-scrollbar {
+  display: none;
+}
+
+.gallery-page {
+  flex: 0 0 100%;
+  width: 100%;
+  scroll-snap-align: start;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 9px;
+}
+
+.gallery-thumb {
+  appearance: none;
+  border: 0;
+  padding: 0;
+  margin: 0;
+  background: transparent;
+  cursor: pointer;
+  overflow: hidden;
+  aspect-ratio: 1 / 1;
+}
+
+.gallery-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.gallery-page-indicator {
+  margin-top: 14px;
+  text-align: center;
+  font-size: 13px;
+  color: var(--subtext);
+}
+
+/* SELF SNAP */
+.selfsnap-section {
+  padding-top: 140px;
+  padding-bottom: 92px;
+}
+
+/* 필름 컨테이너 */
+.film-container {
+  width: 100%;
+  margin: 0 auto;
+  position: relative;
+}
+
+/* 필름 스트립 */
+.film-strip {
+  background: #1a1a1a;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  padding: 0 20px;
+  position: relative;
+}
+
+.film-top {
+  border-radius: 4px 4px 0 0;
+}
+
+.film-bottom {
+  border-radius: 0 0 4px 4px;
+}
+
+/* 필름 구멍 */
+.film-hole {
+  width: 8px;
+  height: 8px;
+  background: white;
+  border-radius: 2px;
+}
+
+/* 캐러셀 */
+.selfsnap-carousel {
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  gap: 16px;
+  padding: 0 calc(50% - 140px);
+  background: #f8f8f8;
+}
+
+.selfsnap-carousel::-webkit-scrollbar {
+  display: none;
+}
+
+.snap-slide {
+  flex: 0 0 280px;
+  scroll-snap-align: center;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.snap-slide:hover {
+  transform: scale(1.02);
+}
+
+.snap-slide {
+  background: #1a1a1a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 360px;
+}
+
+.snap-slide img {
+  width: 100%;
+  height: 100%;
+  max-height: 360px;
+  object-fit: contain;
+  display: block;
+}
+
+.snap-indicator {
+  margin-top: 16px;
+  text-align: center;
+  font-size: 13px;
+  color: var(--subtext);
+  letter-spacing: 0.2px;
+}
+
+/* LOCATION */
+.location-section {
+  padding-top: 28px;
+  padding-bottom: 92px;
+}
+
+.location-card {
+  max-width: 430px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.venue-name {
+  margin: 0 0 6px;
+  font-size: 18px;
+  font-weight: 500;
+  letter-spacing: -0.2px;
+}
+
+.venue-hall {
+  margin: 0 0 8px;
+  font-size: 14px;
+  color: #444;
+}
+
+.venue-address {
+  margin: 0 0 24px;
+  font-size: 14px;
+  line-height: 1.7;
+  color: var(--subtext);
+}
+
+.map-placeholder {
+  width: 100%;
+  aspect-ratio: 1.25 / 1;
+  border: 1px solid var(--line-dark);
+  background: linear-gradient(180deg, #fbfbfb 0%, #f4f4f4 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "Courier Prime", monospace;
+  font-size: 13px;
+  letter-spacing: 1px;
+  color: #969696;
+}
+
+.map-links {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 18px;
+}
+
+.map-links a {
+  flex: 1;
+  max-width: 110px;
+  padding: 11px 12px;
+  border: 1px solid var(--line);
+  background: #fff;
+  font-size: 13px;
+  color: #333;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.map-links a::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  width: 120%;
+  height: 150%;
+  background: radial-gradient(ellipse at center,
+    rgba(173, 216, 230, 0.4) 0%,
+    rgba(173, 216, 230, 0.25) 40%,
+    rgba(173, 216, 230, 0.1) 70%,
+    transparent 100%);
+  border-radius: 50%;
+  z-index: -1;
+  filter: blur(8px);
+  transition: transform 0.4s ease;
+  pointer-events: none;
+}
+
+.map-links a:active::before {
+  transform: translate(-50%, -50%) scale(1);
+}
+
+/* ACCOUNT */
+.account-section {
+  padding-top: 18px;
+  padding-bottom: 96px;
+}
+
+.account-section .section-eyebrow {
+  font-family: "D2Coding", "Courier Prime", monospace;
+}
+
+.account-desc {
+  margin: 0 0 24px;
+  text-align: center;
+  font-size: 14px;
+  line-height: 1.8;
+  color: var(--subtext);
+}
+
+.accordion-wrap {
+  max-width: 430px;
+  margin: 0 auto;
+}
+
+.account-accordion {
+  border-top: 1px solid var(--line);
+}
+
+.account-accordion:last-child {
+  border-bottom: 1px solid var(--line);
+}
+
+.account-accordion summary {
+  list-style: none;
+  cursor: pointer;
+  padding: 18px 4px;
+  position: relative;
+  font-size: 15px;
+  font-weight: 500;
+  color: #202020;
+}
+
+.account-accordion summary::-webkit-details-marker {
+  display: none;
+}
+
+.account-accordion summary::after {
+  content: "+";
+  position: absolute;
+  right: 4px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 18px;
+  color: #6a6a6a;
+}
+
+.account-accordion[open] summary::after {
+  content: "−";
+}
+
+.account-panel {
+  padding: 0 0 16px;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease-out, padding 0.4s ease-out;
+}
+
+.account-accordion[open] .account-panel {
+  max-height: 500px;
+  transition: max-height 0.5s ease-in, padding 0.5s ease-in;
+}
+
+.account-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 0;
+  border-top: 1px solid #f2f2f2;
+}
+
+.account-role {
+  margin: 0 0 4px;
+  font-size: 13px;
+  color: #666;
+}
+
+.account-info {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.7;
+  color: #1f1f1f;
+  word-break: keep-all;
+}
+
+.copy-btn {
+  flex-shrink: 0;
+  min-width: 54px;
+  padding: 8px 10px;
+  border: 1px solid var(--line);
+  background: #fff;
+  color: #444;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+/* FOOTER */
+.footer-note {
+  padding: 0 22px 38px;
+  text-align: center;
+}
+
+.footer-note p {
+  margin: 0;
+  font-family: "Courier Prime", monospace;
+  font-size: 12px;
+  letter-spacing: 1.4px;
+  color: #8c8c8c;
+}
+
+.footer-note .copyright {
+  margin-top: 8px;
+  font-size: 10px;
+  letter-spacing: 0px;
+  color: #ababab;
+}
+
+/* MODAL */
+.gallery-modal {
+  position: fixed;
+  inset: 0;
+  background: var(--modal-bg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  padding: 20px;
+  opacity: 0;
+  transition: opacity 0.3s ease-out;
+}
+
+.gallery-modal.is-open {
+  display: flex;
+  animation: fadeIn 0.3s ease-out forwards;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.modal-image-wrap {
+  width: 100%;
+  max-width: 760px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  opacity: 0;
+  transform: scale(0.95) translateY(20px);
+  animation: slideUp 0.4s ease-out 0.1s forwards;
+}
+
+@keyframes slideUp {
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.modal-image-wrap img {
+  max-width: 100%;
+  max-height: 78vh;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+}
+
+.modal-close {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  width: 44px;
+  height: 44px;
+  border: 0;
+  background: transparent;
+  color: #333;
+  font-size: 34px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.modal-nav {
+  width: 44px;
+  height: 44px;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  background: rgba(255, 255, 255, 0.5);
+  color: #333;
+  border-radius: 999px;
+  font-size: 28px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.modal-prev {
+  position: absolute;
+  left: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.modal-next {
+  position: absolute;
+  right: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.modal-counter {
+  margin-top: 16px;
+  color: #666;
+  font-size: 13px;
+  letter-spacing: 0.3px;
+}
+
+/* MOBILE */
+@media (max-width: 390px) {
+  section {
+    padding-left: 18px;
+    padding-right: 18px;
+  }
+
+  .hero-intro {
+    padding-top: 52px;
+  }
+
+  .intro-text p {
+    font-size: 12px;
+    letter-spacing: 1.2px;
+  }
+
+  .dday-inline {
+    font-size: 18px;
+  }
+
+  .poem-block p,
+  .invite-text p {
+    font-size: 13px;
+    line-height: 1.7;
+  }
+
+  .map-links a {
+    flex: 1;
+    max-width: 95px;
+    padding: 10px 8px;
+    font-size: 12.5px;
+  }
+
+  .modal-nav {
+    width: 40px;
+    height: 40px;
+    font-size: 24px;
+  }
+
+  .modal-prev {
+    left: 10px;
+  }
+
+  .modal-next {
+    right: 10px;
+  }
+}
