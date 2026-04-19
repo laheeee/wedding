@@ -423,6 +423,7 @@ setTimeout(() => {
   galleryPages.scrollLeft = pageWidth * totalOriginalPages;
 }, 0);
 
+/* ---------------------------
 function updateGalleryPageIndicator() {
   if (isGalleryScrolling) return;
 
@@ -442,6 +443,38 @@ function updateGalleryPageIndicator() {
     isGalleryScrolling = true;
     galleryPages.scrollLeft = pageWidth * (totalOriginalPages + (currentPageIndex % totalOriginalPages));
     setTimeout(() => { isGalleryScrolling = false; }, 50);
+  }
+}
+--------------------------- */
+function updateGalleryPageIndicator() {
+  if (isGalleryScrolling) return;
+
+  const pageWidth = galleryPages.clientWidth;
+  const currentPageIndex = Math.round(galleryPages.scrollLeft / pageWidth);
+
+  // 원본 페이지 영역: totalOriginalPages ~ (totalOriginalPages * 2 - 1)
+  const realPage =
+    ((currentPageIndex - totalOriginalPages) % totalOriginalPages + totalOriginalPages) %
+      totalOriginalPages + 1;
+
+  galleryPageIndicator.textContent = `${realPage} / ${totalOriginalPages}`;
+
+  // 앞쪽 복제 영역이면 원본 영역으로 점프
+  if (currentPageIndex < totalOriginalPages) {
+    isGalleryScrolling = true;
+    galleryPages.scrollLeft += pageWidth * totalOriginalPages;
+    setTimeout(() => {
+      isGalleryScrolling = false;
+    }, 50);
+  }
+
+  // 뒤쪽 복제 영역이면 원본 영역으로 점프
+  else if (currentPageIndex >= totalOriginalPages * 2) {
+    isGalleryScrolling = true;
+    galleryPages.scrollLeft -= pageWidth * totalOriginalPages;
+    setTimeout(() => {
+      isGalleryScrolling = false;
+    }, 50);
   }
 }
 
