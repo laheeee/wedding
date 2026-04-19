@@ -452,24 +452,19 @@ function updateGalleryPageIndicator() {
   const pageWidth = galleryPages.clientWidth;
   const currentPageIndex = Math.round(galleryPages.scrollLeft / pageWidth);
 
-  // 원본 페이지 영역: totalOriginalPages ~ (totalOriginalPages * 2 - 1)
   const realPage =
     ((currentPageIndex - totalOriginalPages) % totalOriginalPages + totalOriginalPages) %
       totalOriginalPages + 1;
 
   galleryPageIndicator.textContent = `${realPage} / ${totalOriginalPages}`;
 
-  // 앞쪽 복제 영역이면 원본 영역으로 점프
   if (currentPageIndex < totalOriginalPages) {
     isGalleryScrolling = true;
     galleryPages.scrollLeft += pageWidth * totalOriginalPages;
     setTimeout(() => {
       isGalleryScrolling = false;
     }, 50);
-  }
-
-  // 뒤쪽 복제 영역이면 원본 영역으로 점프
-  else if (currentPageIndex >= totalOriginalPages * 2) {
+  } else if (currentPageIndex >= totalOriginalPages * 2) {
     isGalleryScrolling = true;
     galleryPages.scrollLeft -= pageWidth * totalOriginalPages;
     setTimeout(() => {
@@ -481,6 +476,7 @@ function updateGalleryPageIndicator() {
 galleryPages.addEventListener("scroll", updateGalleryPageIndicator);
 updateGalleryPageIndicator();
 
+/* ---------------------------
 // 화살표 클릭으로 페이지 이동
 galleryArrows[0].addEventListener("click", () => {
   const pageWidth = galleryPages.clientWidth;
@@ -490,6 +486,44 @@ galleryArrows[0].addEventListener("click", () => {
 galleryArrows[1].addEventListener("click", () => {
   const pageWidth = galleryPages.clientWidth;
   galleryPages.scrollBy({ left: pageWidth, behavior: "smooth" });
+});
+--------------------------- */
+
+function getCurrentGalleryPageIndex() {
+  const pageWidth = galleryPages.clientWidth;
+  return Math.round(galleryPages.scrollLeft / pageWidth);
+}
+
+function goToGalleryPage(pageIndex, smooth = true) {
+  const pageWidth = galleryPages.clientWidth;
+  galleryPages.scrollTo({
+    left: pageWidth * pageIndex,
+    behavior: smooth ? "smooth" : "auto"
+  });
+}
+
+galleryArrows[0].addEventListener("click", () => {
+  const currentPageIndex = getCurrentGalleryPageIndex();
+
+  if (currentPageIndex === totalOriginalPages) {
+    goToGalleryPage(totalOriginalPages * 2 - 1, false);
+    updateGalleryPageIndicator();
+    return;
+  }
+
+  goToGalleryPage(currentPageIndex - 1, true);
+});
+
+galleryArrows[1].addEventListener("click", () => {
+  const currentPageIndex = getCurrentGalleryPageIndex();
+
+  if (currentPageIndex === totalOriginalPages * 2 - 1) {
+    goToGalleryPage(totalOriginalPages, false);
+    updateGalleryPageIndicator();
+    return;
+  }
+
+  goToGalleryPage(currentPageIndex + 1, true);
 });
 
 /* ---------------------------
