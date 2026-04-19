@@ -288,7 +288,13 @@ const weddingImages = [
   "images/wedding-09.jpg",
   "images/wedding-10.jpg",
   "images/wedding-11.jpg",
-  "images/wedding-12.jpg"
+  "images/wedding-12.jpg",
+  "images/wedding-13.jpg",
+  "images/wedding-14.jpg",
+  "images/wedding-15.jpg",
+  "images/wedding-16.jpg",
+  "images/wedding-17.jpg",
+  "images/wedding-18.jpg",
 ];
 
 const galleryThumbs = document.querySelectorAll(".gallery-thumb");
