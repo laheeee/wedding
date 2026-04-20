@@ -537,7 +537,7 @@ galleryArrows[1].addEventListener("click", () => {
 
   goToGalleryPage(currentPageIndex + 1, true);
 });
-
+ 
 /* ---------------------------
    6. SCROLL REVEAL ANIMATION
 --------------------------- */
