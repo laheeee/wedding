@@ -4,7 +4,7 @@
 const bgMusic = document.getElementById('bgMusic');
 const musicCheckbox = document.getElementById('musicCheckbox');
 let isMusicPlaying = false;
- 
+  
 // 페이지 로드 시 음악 자동 재생 시도
 document.addEventListener('DOMContentLoaded', () => {
   const playPromise = bgMusic.play();
