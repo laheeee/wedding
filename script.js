@@ -297,7 +297,6 @@ const weddingImages = [
   "images/wedding-18.jpg",
 ];
 
-const galleryThumbs = document.querySelectorAll(".gallery-thumb");
 const galleryModal = document.getElementById("galleryModal");
 const modalImage = document.getElementById("modalImage");
 const modalCounter = document.getElementById("modalCounter");
@@ -310,14 +309,20 @@ let currentWeddingIndex = 0;
 function openModalWithImages(index, images) {
   currentModalImages = images;
   currentWeddingIndex = index;
-  updateModalImage();
+
+  // 이미지를 먼저 설정하고 로드 확인
+  const imgSrc = currentModalImages[currentWeddingIndex];
+  modalImage.src = imgSrc;
+  modalCounter.textContent = `${currentWeddingIndex + 1} / ${currentModalImages.length}`;
+
+  // 모달 열기
   galleryModal.classList.add("is-open");
   galleryModal.setAttribute("aria-hidden", "false");
   document.body.classList.add("modal-open");
 }
 
 function openModal(index) {
-  currentModalImages = weddingImages; // 웨딩 사진 배열 사용
+  currentModalImages = weddingImages;
   openModalWithImages(index, currentModalImages);
 }
 
@@ -328,7 +333,10 @@ function closeModal() {
 }
 
 function updateModalImage() {
-  modalImage.src = currentModalImages[currentWeddingIndex];
+  const imgSrc = currentModalImages[currentWeddingIndex];
+
+  // 바로 src 설정 (브라우저가 알아서 캐시 처리)
+  modalImage.src = imgSrc;
   modalCounter.textContent = `${currentWeddingIndex + 1} / ${currentModalImages.length}`;
 }
 
@@ -343,13 +351,6 @@ function showNextImage() {
     (currentWeddingIndex + 1) % currentModalImages.length;
   updateModalImage();
 }
-
-galleryThumbs.forEach((thumb) => {
-  thumb.addEventListener("click", () => {
-    const index = Number(thumb.dataset.index);
-    openModal(index);
-  });
-});
 
 modalClose.addEventListener("click", closeModal);
 modalPrev.addEventListener("click", showPrevImage);
@@ -412,12 +413,17 @@ originalPages.forEach(page => {
   galleryPages.appendChild(clone);
 });
 
-// 모든 썸네일 클릭 이벤트 다시 연결
-const allGalleryThumbs = document.querySelectorAll(".gallery-thumb");
-allGalleryThumbs.forEach((thumb) => {
-  thumb.addEventListener("click", () => {
+// 복제 완료 후 모든 썸네일에 클릭 이벤트 연결
+// data-index를 배열 인덱스로 사용하여 항상 정확한 이미지 참조
+document.querySelectorAll(".gallery-thumb").forEach((thumb) => {
+  thumb.addEventListener("click", (e) => {
+    e.preventDefault();
+    e.stopPropagation();
     const index = Number(thumb.dataset.index);
-    openModal(index);
+    // 배열에서 직접 이미지 경로 확인
+    if (index >= 0 && index < weddingImages.length) {
+      openModal(index);
+    }
   });
 });
 
@@ -555,7 +561,27 @@ sections.forEach(section => {
 });
 
 /* ---------------------------
-   7. ACCORDION ANIMATION
+   7. PARKING & SHUTTLE TABS
+--------------------------- */
+const tabBtns = document.querySelectorAll('.tab-btn');
+const tabContents = document.querySelectorAll('.tab-content');
+
+tabBtns.forEach(btn => {
+  btn.addEventListener('click', () => {
+    const targetTab = btn.dataset.tab;
+
+    // 모든 버튼과 콘텐츠 비활성화
+    tabBtns.forEach(b => b.classList.remove('active'));
+    tabContents.forEach(c => c.classList.remove('active'));
+
+    // 클릭한 버튼과 해당 콘텐츠 활성화
+    btn.classList.add('active');
+    document.getElementById(targetTab + '-content').classList.add('active');
+  });
+});
+
+/* ---------------------------
+   8. ACCORDION ANIMATION
 --------------------------- */
 const accordions = document.querySelectorAll('.account-accordion');
 
