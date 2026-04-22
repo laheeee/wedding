@@ -822,6 +822,7 @@ section.is-visible {
   height: 100%;
   object-fit: cover;
   transition: transform 0.2s ease-out; /* 요것만 추가! */
+  border-radius: 6px;
 }
 
 .gallery-page-indicator {
