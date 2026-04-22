@@ -1339,7 +1339,7 @@ section.is-visible {
   width: auto;
   height: auto;
   object-fit: contain;
-  border-radius: 4px;
+  border-radius: 6px;
   /* 여기에 아래 3줄만 추가하세요 */
   -webkit-user-drag: none;
   -webkit-backface-visibility: hidden;
