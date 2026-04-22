@@ -4,25 +4,21 @@
 const bgMusic = document.getElementById('bgMusic');
 const musicCheckbox = document.getElementById('musicCheckbox');
 let isMusicPlaying = false;
-  
-// 페이지 로드 시 음악 자동 재생 시도
+
 document.addEventListener('DOMContentLoaded', () => {
   const playPromise = bgMusic.play();
 
   if (playPromise !== undefined) {
     playPromise.then(() => {
-      // 자동 재생 성공
       isMusicPlaying = true;
       musicCheckbox.checked = true;
     }).catch(() => {
-      // 자동 재생 실패 (브라우저 정책)
       isMusicPlaying = false;
       musicCheckbox.checked = false;
     });
   }
 });
 
-// 토글 스위치 클릭
 musicCheckbox.addEventListener('change', () => {
   if (musicCheckbox.checked) {
     bgMusic.play();
@@ -46,14 +42,13 @@ let isOpen = false;
 let polaroidTimer = null;
 let isAutoOpened = false;
 
-// 페이지 DOM 로드 후 자동으로 열림 (이미지 로딩 완료 기다리지 않음)
 document.addEventListener('DOMContentLoaded', () => {
   setTimeout(() => {
     if (!isAutoOpened) {
       openInvitation();
       isAutoOpened = true;
     }
-  }, 1500); // 1.5초 후 자동 열림
+  }, 1500);
 });
 
 function openInvitation() {
@@ -64,7 +59,6 @@ function openInvitation() {
   tapHint.classList.add('opened');
   tapHint.textContent = 'TAP TO CLOSE';
 
-  // 펼쳐지면 바로 폴라로이드 나타남
   polaroidTimer = setTimeout(() => {
     polaroid.classList.add('visible');
     polaroidTimer = null;
@@ -133,7 +127,6 @@ function updateCountdown() {
 updateCountdown();
 setInterval(updateCountdown, 1000);
 
-// 아날로그 시계
 const hourHand = document.getElementById("hourHand");
 const minuteHand = document.getElementById("minuteHand");
 const secondHand = document.getElementById("secondHand");
@@ -157,7 +150,7 @@ updateClock();
 setInterval(updateClock, 1000);
 
 /* ---------------------------
-   2. SELF SNAP CAROUSEL
+   3. SELF SNAP CAROUSEL
 --------------------------- */
 const snapImages = [
   "images/self-01.jpg",
@@ -176,82 +169,61 @@ const snapCarousel = document.getElementById("snapCarousel");
 const snapIndicator = document.getElementById("snapIndicator");
 const snapCounter = document.querySelector(".snap-counter");
 const snapArrows = document.querySelectorAll(".snap-arrow");
-let snapSlides = document.querySelectorAll(".snap-slide");
 
 let currentSnapIndex = 0;
-let currentModalImages = []; // 현재 모달에서 보여줄 이미지 배열
 let isSnapScrolling = false;
 
-// 무한 루프를 위해 슬라이드 복제
-const originalSlides = Array.from(snapSlides);
-originalSlides.forEach(slide => {
-  const clone = slide.cloneNode(true);
-  snapCarousel.appendChild(clone);
-});
-originalSlides.forEach(slide => {
-  const clone = slide.cloneNode(true);
-  snapCarousel.appendChild(clone);
-});
-
-// 슬라이드 목록 다시 가져오기
-snapSlides = document.querySelectorAll(".snap-slide");
+const originalSlides = Array.from(document.querySelectorAll(".snap-slide"));
 const totalOriginal = snapImages.length;
 
-// 처음 시작 위치를 중간 세트로 설정
+originalSlides.forEach(slide => {
+  const clone = slide.cloneNode(true);
+  snapCarousel.appendChild(clone);
+});
+originalSlides.forEach(slide => {
+  const clone = slide.cloneNode(true);
+  snapCarousel.appendChild(clone);
+});
+
 setTimeout(() => {
-  const slideWidth = snapSlides[0].offsetWidth + 16;
+  const slideWidth = snapCarousel.querySelector('.snap-slide').offsetWidth + 16;
   snapCarousel.scrollLeft = slideWidth * totalOriginal;
 }, 0);
 
-// 스크롤로 현재 인덱스 업데이트
 snapCarousel.addEventListener("scroll", () => {
   if (isSnapScrolling) return;
 
-  const slideWidth = snapSlides[0].offsetWidth + 16;
+  const slideWidth = snapCarousel.querySelector('.snap-slide').offsetWidth + 16;
   const scrollLeft = snapCarousel.scrollLeft;
   const currentIndex = Math.round(scrollLeft / slideWidth);
 
-  // 실제 인덱스 계산 (0-9 범위로 유지)
   const realIndex = currentIndex % totalOriginal;
   currentSnapIndex = realIndex;
   snapCounter.textContent = `${realIndex + 1} / ${totalOriginal}`;
 
-  // 무한 루프: 첫 번째 또는 마지막 세트에 도달하면 중간으로 점프
   if (currentIndex < 3) {
-    // 너무 왼쪽으로 가면 두 번째 세트로
     isSnapScrolling = true;
     snapCarousel.scrollLeft = slideWidth * (totalOriginal + realIndex);
     setTimeout(() => { isSnapScrolling = false; }, 50);
   } else if (currentIndex >= totalOriginal * 2 - 3) {
-    // 너무 오른쪽으로 가면 두 번째 세트로
     isSnapScrolling = true;
     snapCarousel.scrollLeft = slideWidth * (totalOriginal + realIndex);
     setTimeout(() => { isSnapScrolling = false; }, 50);
   }
 });
 
-// 셀프 스냅 클릭 시 모달 열기 (복제된 슬라이드 포함)
-snapSlides.forEach((slide) => {
-  slide.addEventListener("click", () => {
-    const index = Number(slide.dataset.snapIndex);
-    currentModalImages = snapImages; // 셀프 스냅 배열 사용
-    openModalWithImages(index, currentModalImages);
-  });
-});
-
-// 셀프 스냅 화살표 클릭으로 스크롤
 snapArrows[0].addEventListener("click", () => {
-  const slideWidth = snapSlides[0].offsetWidth + 16;
+  const slideWidth = snapCarousel.querySelector('.snap-slide').offsetWidth + 16;
   snapCarousel.scrollBy({ left: -slideWidth, behavior: "smooth" });
 });
 
 snapArrows[1].addEventListener("click", () => {
-  const slideWidth = snapSlides[0].offsetWidth + 16;
+  const slideWidth = snapCarousel.querySelector('.snap-slide').offsetWidth + 16;
   snapCarousel.scrollBy({ left: slideWidth, behavior: "smooth" });
 });
 
 /* ---------------------------
-   3. ACCOUNT COPY
+   4. ACCOUNT COPY
 --------------------------- */
 const copyButtons = document.querySelectorAll(".copy-btn");
 
@@ -274,7 +246,7 @@ copyButtons.forEach((button) => {
 });
 
 /* ---------------------------
-   4. WEDDING GALLERY MODAL
+   5. WEDDING GALLERY MODAL (이벤트 위임)
 --------------------------- */
 const weddingImages = [
   "images/wedding-01.jpg",
@@ -304,53 +276,94 @@ const modalClose = document.getElementById("modalClose");
 const modalPrev = document.getElementById("modalPrev");
 const modalNext = document.getElementById("modalNext");
 
-let currentWeddingIndex = 0;
+let currentIndex = 0;
+let currentImages = [];
+let isModalOpen = false;
+let isModalOpening = false;
 
-function openModalWithImages(index, images) {
-  currentModalImages = images;
-  currentWeddingIndex = index;
+function openModal(index, images) {
+  if (isModalOpen || isModalOpening) return;
 
-  // 이미지를 먼저 설정하고 로드 확인
-  const imgSrc = currentModalImages[currentWeddingIndex];
+  isModalOpening = true;
+
+  currentIndex = index;
+  currentImages = images;
+
+  const imgSrc = currentImages[currentIndex];
+  if (!imgSrc) {
+    isModalOpening = false;
+    return;
+  }
+
   modalImage.src = imgSrc;
-  modalCounter.textContent = `${currentWeddingIndex + 1} / ${currentModalImages.length}`;
+  modalCounter.textContent = `${currentIndex + 1} / ${currentImages.length}`;
 
-  // 모달 열기
-  galleryModal.classList.add("is-open");
-  galleryModal.setAttribute("aria-hidden", "false");
-  document.body.classList.add("modal-open");
-}
-
-function openModal(index) {
-  currentModalImages = weddingImages;
-  openModalWithImages(index, currentModalImages);
+  requestAnimationFrame(() => {
+    galleryModal.classList.add("is-open");
+    galleryModal.setAttribute("aria-hidden", "false");
+    document.body.classList.add("modal-open");
+    isModalOpen = true;
+    isModalOpening = false;
+  });
 }
 
 function closeModal() {
+  if (!isModalOpen) return;
+
   galleryModal.classList.remove("is-open");
   galleryModal.setAttribute("aria-hidden", "true");
   document.body.classList.remove("modal-open");
+  isModalOpen = false;
 }
 
 function updateModalImage() {
-  const imgSrc = currentModalImages[currentWeddingIndex];
+  const imgSrc = currentImages[currentIndex];
+  if (!imgSrc) return;
 
-  // 바로 src 설정 (브라우저가 알아서 캐시 처리)
   modalImage.src = imgSrc;
-  modalCounter.textContent = `${currentWeddingIndex + 1} / ${currentModalImages.length}`;
+  modalCounter.textContent = `${currentIndex + 1} / ${currentImages.length}`;
 }
 
 function showPrevImage() {
-  currentWeddingIndex =
-    (currentWeddingIndex - 1 + currentModalImages.length) % currentModalImages.length;
+  if (!isModalOpen) return;
+  currentIndex = (currentIndex - 1 + currentImages.length) % currentImages.length;
   updateModalImage();
 }
 
 function showNextImage() {
-  currentWeddingIndex =
-    (currentWeddingIndex + 1) % currentModalImages.length;
+  if (!isModalOpen) return;
+  currentIndex = (currentIndex + 1) % currentImages.length;
   updateModalImage();
 }
+
+// 이벤트 위임: 웨딩 갤러리
+const galleryPages = document.getElementById("galleryPages");
+galleryPages.addEventListener("click", (e) => {
+  const thumb = e.target.closest('.gallery-thumb');
+  if (!thumb) return;
+
+  e.preventDefault();
+  e.stopPropagation();
+
+  const index = Number(thumb.dataset.index);
+  if (isNaN(index) || index < 0 || index >= weddingImages.length) return;
+
+  openModal(index, weddingImages);
+}, { capture: true });
+
+// 이벤트 위임: 셀프 스냅
+snapCarousel.addEventListener("click", (e) => {
+  const slide = e.target.closest('.snap-slide');
+  if (!slide) return;
+
+  e.preventDefault();
+  e.stopPropagation();
+
+  const index = Number(slide.dataset.snapIndex);
+  if (isNaN(index) || index < 0 || index >= snapImages.length) return;
+
+  openModal(index, snapImages);
+}, { capture: true });
 
 modalClose.addEventListener("click", closeModal);
 modalPrev.addEventListener("click", showPrevImage);
@@ -363,7 +376,7 @@ galleryModal.addEventListener("click", (e) => {
 });
 
 document.addEventListener("keydown", (e) => {
-  if (!galleryModal.classList.contains("is-open")) return;
+  if (!isModalOpen) return;
 
   if (e.key === "Escape") {
     closeModal();
@@ -374,7 +387,6 @@ document.addEventListener("keydown", (e) => {
   }
 });
 
-/* swipe for modal */
 let modalTouchStartX = 0;
 let modalTouchEndX = 0;
 
@@ -394,13 +406,11 @@ galleryModal.addEventListener("touchend", (e) => {
 });
 
 /* ---------------------------
-   5. GALLERY PAGE INDICATOR + INFINITE LOOP
+   6. GALLERY PAGE INDICATOR + INFINITE LOOP
 --------------------------- */
-const galleryPages = document.getElementById("galleryPages");
 const galleryPageIndicator = document.querySelector(".gallery-counter");
 const galleryArrows = document.querySelectorAll(".gallery-arrow");
 
-// 무한 루프를 위해 페이지 복제
 const originalPages = Array.from(galleryPages.querySelectorAll(".gallery-page"));
 const totalOriginalPages = originalPages.length;
 
@@ -413,51 +423,13 @@ originalPages.forEach(page => {
   galleryPages.appendChild(clone);
 });
 
-// 복제 완료 후 모든 썸네일에 클릭 이벤트 연결
-// data-index를 배열 인덱스로 사용하여 항상 정확한 이미지 참조
-document.querySelectorAll(".gallery-thumb").forEach((thumb) => {
-  thumb.addEventListener("click", (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-    const index = Number(thumb.dataset.index);
-    // 배열에서 직접 이미지 경로 확인
-    if (index >= 0 && index < weddingImages.length) {
-      openModal(index);
-    }
-  });
-});
-
 let isGalleryScrolling = false;
 
-// 처음 시작 위치를 중간 세트로
 setTimeout(() => {
   const pageWidth = galleryPages.clientWidth;
   galleryPages.scrollLeft = pageWidth * totalOriginalPages;
 }, 0);
 
-/* ---------------------------
-function updateGalleryPageIndicator() {
-  if (isGalleryScrolling) return;
-
-  const pageWidth = galleryPages.clientWidth;
-  const scrollLeft = galleryPages.scrollLeft;
-  const currentPageIndex = Math.round(scrollLeft / pageWidth);
-
-  const realPage = (currentPageIndex % totalOriginalPages) + 1;
-  galleryPageIndicator.textContent = `${realPage} / ${totalOriginalPages}`;
-
-  // 무한 루프 점프
-  if (currentPageIndex < 1) {
-    isGalleryScrolling = true;
-    galleryPages.scrollLeft = pageWidth * (totalOriginalPages + (currentPageIndex % totalOriginalPages));
-    setTimeout(() => { isGalleryScrolling = false; }, 50);
-  } else if (currentPageIndex >= totalOriginalPages * 2 - 1) {
-    isGalleryScrolling = true;
-    galleryPages.scrollLeft = pageWidth * (totalOriginalPages + (currentPageIndex % totalOriginalPages));
-    setTimeout(() => { isGalleryScrolling = false; }, 50);
-  }
-}
---------------------------- */
 function updateGalleryPageIndicator() {
   if (isGalleryScrolling) return;
 
@@ -470,36 +442,24 @@ function updateGalleryPageIndicator() {
 
   galleryPageIndicator.textContent = `${realPage} / ${totalOriginalPages}`;
 
-  if (currentPageIndex < totalOriginalPages) {
+  // 무한 루프 경계 처리 - 더 여유있게
+  if (currentPageIndex <= 0) {
     isGalleryScrolling = true;
-    galleryPages.scrollLeft += pageWidth * totalOriginalPages;
+    galleryPages.scrollLeft = pageWidth * totalOriginalPages;
     setTimeout(() => {
       isGalleryScrolling = false;
-    }, 50);
-  } else if (currentPageIndex >= totalOriginalPages * 2) {
+    }, 300);
+  } else if (currentPageIndex >= totalOriginalPages * 3 - 1) {
     isGalleryScrolling = true;
-    galleryPages.scrollLeft -= pageWidth * totalOriginalPages;
+    galleryPages.scrollLeft = pageWidth * (totalOriginalPages * 2 - 1);
     setTimeout(() => {
       isGalleryScrolling = false;
-    }, 50);
+    }, 300);
   }
 }
 
 galleryPages.addEventListener("scroll", updateGalleryPageIndicator);
 updateGalleryPageIndicator();
-
-/* ---------------------------
-// 화살표 클릭으로 페이지 이동
-galleryArrows[0].addEventListener("click", () => {
-  const pageWidth = galleryPages.clientWidth;
-  galleryPages.scrollBy({ left: -pageWidth, behavior: "smooth" });
-});
-
-galleryArrows[1].addEventListener("click", () => {
-  const pageWidth = galleryPages.clientWidth;
-  galleryPages.scrollBy({ left: pageWidth, behavior: "smooth" });
-});
---------------------------- */
 
 function getCurrentGalleryPageIndex() {
   const pageWidth = galleryPages.clientWidth;
@@ -515,31 +475,39 @@ function goToGalleryPage(pageIndex, smooth = true) {
 }
 
 galleryArrows[0].addEventListener("click", () => {
-  const currentPageIndex = getCurrentGalleryPageIndex();
+  if (isGalleryScrolling) return;
 
-  if (currentPageIndex === totalOriginalPages) {
-    goToGalleryPage(totalOriginalPages * 2 - 1, false);
-    updateGalleryPageIndicator();
-    return;
-  }
-
-  goToGalleryPage(currentPageIndex - 1, true);
+  const pageWidth = galleryPages.clientWidth;
+  galleryPages.scrollBy({ left: -pageWidth, behavior: "smooth" });
 });
 
 galleryArrows[1].addEventListener("click", () => {
-  const currentPageIndex = getCurrentGalleryPageIndex();
+  if (isGalleryScrolling) return;
 
-  if (currentPageIndex === totalOriginalPages * 2 - 1) {
-    goToGalleryPage(totalOriginalPages, false);
-    updateGalleryPageIndicator();
-    return;
-  }
-
-  goToGalleryPage(currentPageIndex + 1, true);
+  const pageWidth = galleryPages.clientWidth;
+  galleryPages.scrollBy({ left: pageWidth, behavior: "smooth" });
 });
 
 /* ---------------------------
-   6. SCROLL REVEAL ANIMATION
+   7. PARKING & SHUTTLE TABS
+--------------------------- */
+const tabBtns = document.querySelectorAll('.tab-btn');
+const tabContents = document.querySelectorAll('.tab-content');
+
+tabBtns.forEach(btn => {
+  btn.addEventListener('click', () => {
+    const targetTab = btn.dataset.tab;
+
+    tabBtns.forEach(b => b.classList.remove('active'));
+    tabContents.forEach(c => c.classList.remove('active'));
+
+    btn.classList.add('active');
+    document.getElementById(targetTab + '-content').classList.add('active');
+  });
+});
+
+/* ---------------------------
+   8. SCROLL REVEAL ANIMATION
 --------------------------- */
 const observerOptions = {
   root: null,
@@ -561,27 +529,7 @@ sections.forEach(section => {
 });
 
 /* ---------------------------
-   7. PARKING & SHUTTLE TABS
---------------------------- */
-const tabBtns = document.querySelectorAll('.tab-btn');
-const tabContents = document.querySelectorAll('.tab-content');
-
-tabBtns.forEach(btn => {
-  btn.addEventListener('click', () => {
-    const targetTab = btn.dataset.tab;
-
-    // 모든 버튼과 콘텐츠 비활성화
-    tabBtns.forEach(b => b.classList.remove('active'));
-    tabContents.forEach(c => c.classList.remove('active'));
-
-    // 클릭한 버튼과 해당 콘텐츠 활성화
-    btn.classList.add('active');
-    document.getElementById(targetTab + '-content').classList.add('active');
-  });
-});
-
-/* ---------------------------
-   8. ACCORDION ANIMATION
+   9. ACCORDION ANIMATION
 --------------------------- */
 const accordions = document.querySelectorAll('.account-accordion');
 
@@ -593,7 +541,6 @@ accordions.forEach(accordion => {
     e.preventDefault();
 
     if (accordion.hasAttribute('open')) {
-      // 닫기
       const startHeight = panel.scrollHeight + 'px';
       panel.style.height = startHeight;
 
@@ -607,7 +554,6 @@ accordions.forEach(accordion => {
         accordion.removeAttribute('open');
       }, 300);
     } else {
-      // 열기
       accordion.setAttribute('open', '');
       panel.style.height = '0px';
       panel.style.opacity = '0';
