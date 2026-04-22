@@ -820,6 +820,7 @@ section.is-visible {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  transition: transform 0.2s ease-out; /* 요것만 추가! */
 }
 
 .gallery-page-indicator {
@@ -1428,4 +1429,43 @@ section.is-visible {
   .modal-next {
     right: -4px;
   }
+}
+
+/* ---------------------------
+   WEDDING GALLERY THUMBNAIL POSITION
+--------------------------- */
+
+/* 2, 3번: 상단 위주 (오빠 얼굴 최적화) */
+.gallery-thumb[data-index="2"] img,
+.gallery-thumb[data-index="3"] img {
+  object-position: center 15%;
+}
+
+/* 5번: 상단 위주 (오빠 얼굴 최적화) */
+.gallery-thumb[data-index="5"] img {
+  object-position: center 10%;
+}
+
+/* 8, 9번: 상단 위주 */
+.gallery-thumb[data-index="8"] img,
+.gallery-thumb[data-index="9"] img {
+  object-position: center 15%;
+}
+
+/* 12, 14, 15번: 살짝 위로 올림 */
+.gallery-thumb[data-index="12"] img,
+.gallery-thumb[data-index="14"] img,
+.gallery-thumb[data-index="15"] img {
+  object-position: center 20%;
+}
+
+/* [참고] 0, 1, 4번은 기본값(center) 유지이므로 별도 코드가 필요 없습니다. */
+
+/* ---------------------------
+   UX 개선: 클릭 피드백 (선택사항이지만 추천!)
+--------------------------- */
+.gallery-thumb:active img {
+  transform: scale(0.97); /* 터치 시 살짝 작아짐 */
+  filter: brightness(0.9); /* 살짝 어두워짐 */
+  transition: transform 0.1s ease-out;
 }
