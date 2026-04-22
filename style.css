@@ -1288,18 +1288,20 @@ section.is-visible {
   background: var(--modal-bg);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  display: none;
+  display: none; /* 기본은 숨김 */
   align-items: center;
   justify-content: center;
   z-index: 9999;
   padding: 20px;
   opacity: 0;
-  transition: opacity 0.3s ease-out;
+  transition: opacity 0.3s ease-out; /* 이 트랜지션이 fadeIn 역할을 합니다 */
+  -webkit-overflow-scrolling: touch;
+  will-change: opacity;
 }
 
 .gallery-modal.is-open {
-  display: flex;
-  animation: fadeIn 0.3s ease-out forwards;
+  display: flex !important;
+  opacity: 1;
 }
 
 @keyframes fadeIn {
@@ -1336,6 +1338,11 @@ section.is-visible {
   height: auto;
   object-fit: contain;
   border-radius: 4px;
+  /* 여기에 아래 3줄만 추가하세요 */
+  -webkit-user-drag: none;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  transform: translateZ(0);
 }
 
 .modal-close {
