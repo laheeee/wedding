@@ -46,7 +46,7 @@ body {
   margin: 0;
   background: var(--bg);
   color: var(--text);
-  font-family: "Noto Sans KR", -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", sans-serif;
+  font-family: "Courier Prime", "Courier New", Courier, "Noto Sans KR", -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", sans-serif;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
 }
@@ -786,7 +786,7 @@ section.is-visible {
 .gallery-pages {
   display: flex;
   overflow-x: auto;
-  gap: 16px;
+  /*gap: 16px;*/
   scroll-snap-type: x mandatory;
   -webkit-overflow-scrolling: touch;
   padding-bottom: 8px;
@@ -800,9 +800,12 @@ section.is-visible {
   flex: 0 0 100%;
   width: 100%;
   scroll-snap-align: start;
+  scroll-snap-stop: always; /* 한 번에 한 페이지만 딱딱 걸리게 함 */
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 9px;
+  /* 페이지 내부의 사진들 간격을 위해 좌우 패딩을 살짝 주는 것이 안전합니다 */
+  padding: 0 2px;
 }
 
 .gallery-thumb {
