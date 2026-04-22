@@ -1294,7 +1294,7 @@ section.is-visible {
   z-index: 9999;
   padding: 20px;
   opacity: 0;
-  transition: opacity 0.3s ease-out; /* 이 트랜지션이 fadeIn 역할을 합니다 */
+  transition: opacity 0.15s ease-out; /* 이 트랜지션이 fadeIn 역할을 합니다 */
   -webkit-overflow-scrolling: touch;
   will-change: opacity;
 }
@@ -1320,8 +1320,8 @@ section.is-visible {
   flex-direction: column;
   align-items: center;
   opacity: 0;
-  transform: scale(0.95) translateY(20px);
-  animation: slideUp 0.4s ease-out 0.1s forwards;
+  transform: scale(0.98) translateY(10px);
+  animation: slideUp 0.2s ease-out 0s forwards;
 }
 
 @keyframes slideUp {
