@@ -4,7 +4,7 @@
   font-weight: normal;
   font-style: normal;
 }
- 
+
 :root {
   --bg: #ffffff;
   --text: #171717;
@@ -13,7 +13,7 @@
   --line-dark: #d8d8d8;
   --soft: #f8f8f8;
   --shadow-soft: 0 12px 28px rgba(0, 0, 0, 0.05);
-  --modal-bg: rgba(250, 248, 245, 0.92);
+  --modal-bg: rgba(250, 248, 245, 0.3);
 }
 
 * {
@@ -1098,7 +1098,7 @@ section.is-visible {
 .tab-content-wrapper {
   max-width: 430px;
   margin: 0 auto;
-  height: 150px;
+  height: 250px;
   position: relative;
 }
 
@@ -1127,7 +1127,26 @@ section.is-visible {
 }
 
 #shuttle-content {
-  padding-top: 50px;
+  padding-top: 0;
+}
+
+.shuttle-label {
+  font-weight: 500;
+  font-size: 13px;
+  color: #333;
+  margin-bottom: 6px !important;
+}
+
+.shuttle-pending {
+  color: #999;
+  font-style: italic;
+}
+
+.shuttle-divider {
+  width: 60%;
+  height: 1px;
+  background: #ddd;
+  margin: 16px auto;
 }
 
 /* ACCOUNT */
@@ -1315,6 +1334,7 @@ section.is-visible {
   width: auto;
   height: auto;
   object-fit: contain;
+  border-radius: 4px;
 }
 
 .modal-close {
@@ -1339,20 +1359,17 @@ section.is-visible {
   cursor: pointer;
   z-index: 10000;
   padding: 12px;
+  position: fixed;
+  top: 50%;
+  transform: translateY(-50%);
 }
 
 .modal-prev {
-  position: absolute;
-  left: 20px;
-  top: 50%;
-  transform: translateY(-50%);
+  left: -4px;
 }
 
 .modal-next {
-  position: absolute;
-  right: 20px;
-  top: 50%;
-  transform: translateY(-50%);
+  right: -4px;
 }
 
 .modal-counter {
@@ -1405,10 +1422,10 @@ section.is-visible {
   }
 
   .modal-prev {
-    left: 12px;
+    left: -4px;
   }
 
   .modal-next {
-    right: 12px;
+    right: -4px;
   }
 }
