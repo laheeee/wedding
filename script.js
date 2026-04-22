@@ -281,7 +281,7 @@ let currentImages = [];
 let isModalOpen = false;
 let isModalOpening = false;
 
-function openModal(index, images) {
+/*--function openModal(index, images) {
   if (isModalOpen || isModalOpening) return;
 
   isModalOpening = true;
@@ -314,6 +314,68 @@ function closeModal() {
   galleryModal.setAttribute("aria-hidden", "true");
   document.body.classList.remove("modal-open");
   isModalOpen = false;
+}*/
+
+/* --- 기존 openModal을 아래 코드로 교체 --- */
+function openModal(index, images) {
+  if (isModalOpen || isModalOpening) return;
+  isModalOpening = true;
+
+  currentIndex = index;
+  currentImages = images;
+
+  const pureSrc = currentImages[currentIndex];
+  if (!pureSrc) {
+    isModalOpening = false;
+    return;
+  }
+
+  // 사파리/카톡 캐시 버그 방지 (이미지 경로 뒤에 고유 번호 추가)
+  const finalSrc = pureSrc + "?v=" + new Date().getTime();
+
+  const imgLoader = new Image();
+  imgLoader.src = finalSrc;
+
+  // 이미지가 화면에 그려질 준비가 끝났을 때만 모달을 표시
+  imgLoader.onload = function() {
+    modalImage.src = finalSrc;
+    modalCounter.textContent = `${currentIndex + 1} / ${currentImages.length}`;
+
+    // 강제 리플로우 (사파리 렌더링 깨움)
+    void modalImage.offsetWidth; 
+
+    requestAnimationFrame(() => {
+      galleryModal.classList.add("is-open");
+      galleryModal.setAttribute("aria-hidden", "false");
+      document.body.classList.add("modal-open");
+      
+      isModalOpen = true;
+      isModalOpening = false;
+    });
+  };
+
+  imgLoader.onerror = function() {
+    modalImage.src = pureSrc;
+    galleryModal.classList.add("is-open");
+    isModalOpen = true;
+    isModalOpening = false;
+  };
+}
+
+/* --- 기존 closeModal을 아래 코드로 교체 --- */
+function closeModal() {
+  if (!isModalOpen) return;
+
+  galleryModal.classList.remove("is-open");
+  galleryModal.setAttribute("aria-hidden", "true");
+  document.body.classList.remove("modal-open");
+
+  // 닫을 때 이미지를 비워줘야 다음 사진 로딩 시 꼬이지 않음
+  setTimeout(() => {
+    modalImage.src = ""; 
+    isModalOpen = false;
+    isModalOpening = false;
+  }, 300);
 }
 
 function updateModalImage() {
