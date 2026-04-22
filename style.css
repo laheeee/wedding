@@ -815,6 +815,10 @@ section.is-visible {
   overflow: hidden;
   aspect-ratio: 1 / 1;
   border-radius: 6px;
+  /* [추가] 모바일에서 클릭 대기 시간(300ms)을 없애 즉각 반응하게 합니다 */
+  touch-action: manipulation; 
+  /* [추가] 모바일에서 클릭 시 생기는 파란색 하이라이트 박스를 제거합니다 */
+  -webkit-tap-highlight-color: transparent;
 }
 
 .gallery-thumb img {
@@ -823,6 +827,13 @@ section.is-visible {
   object-fit: cover;
   transition: transform 0.2s ease-out; /* 요것만 추가! */
   border-radius: 6px;
+}
+
+/* [추가] 사진을 누르고 있을 때의 반응 */
+.gallery-thumb:active img {
+  transform: scale(0.96); /* 사진이 살짝 작아지면서 눌리는 느낌을 줌 */
+  opacity: 0.8;           /* 살짝 흐려지면서 클릭되었다는 신호를 줌 */
+  transition: transform 0.1s; /* 누를 때는 더 빠르게 반응 */
 }
 
 .gallery-page-indicator {
