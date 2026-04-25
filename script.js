@@ -165,56 +165,61 @@ const snapImages = [
   "images/self-10.jpg"
 ];
 /* ---------------------------
-   3. SELF SNAP CAROUSEL (완전 복구 및 버벅임 수정)
+   3. SELF SNAP CAROUSEL (최종 정렬 및 끊김 해결)
 --------------------------- */
 const snapCarousel = document.getElementById("snapCarousel");
 const snapCounter = document.querySelector(".snap-counter");
 const snapArrows = document.querySelectorAll(".snap-arrow");
+const totalOriginal = 10; 
 
-const totalOriginal = 10; // 사진 갯수
-
-// 기존의 복제 로직은 그대로 둡니다 (이미 HTML/JS에서 복제되어 있다고 가정)
 let isSnapScrolling = false;
 
-// [복구] 1번 사진이 먼저 보이도록 초기 위치 설정
-setTimeout(() => {
-  const slideWidth = snapCarousel.querySelector('.snap-slide').offsetWidth + 16;
-  // 중앙 세트의 시작점으로 이동 (1번 사진)
-  snapCarousel.scrollLeft = slideWidth * totalOriginal;
-}, 50);
+// [포인트 1] 1번 사진이 정중앙에 오도록 초기화
+function initSnapPosition() {
+  const slides = snapCarousel.querySelectorAll('.snap-slide');
+  if (slides.length > totalOriginal) {
+    // 2번째 세트의 시작점(1번 사진)으로 이동
+    const targetSlide = slides[totalOriginal]; 
+    snapCarousel.scrollLeft = targetSlide.offsetLeft - (snapCarousel.clientWidth / 2) + (targetSlide.clientWidth / 2);
+  }
+}
+
+// 로딩 직후와 창 크기 변경 시 위치 재설정
+window.addEventListener('load', initSnapPosition);
+window.addEventListener('resize', initSnapPosition);
+setTimeout(initSnapPosition, 100);
 
 snapCarousel.addEventListener("scroll", () => {
   if (isSnapScrolling) return;
 
   const slideWidth = snapCarousel.querySelector('.snap-slide').offsetWidth + 16;
   const scrollLeft = snapCarousel.scrollLeft;
+  
+  // 현재 중앙에 가장 가까운 인덱스 계산
   const currentIndex = Math.round(scrollLeft / slideWidth);
-
   const realIndex = (currentIndex % totalOriginal + totalOriginal) % totalOriginal;
+  
   snapCounter.textContent = `${realIndex + 1} / ${totalOriginal}`;
 
-  // [수정 포인트] 8~10페이지 끊김 해결을 위해 범위를 살짝 조정 (3 -> 2)
-  // 너무 끝까지 가서 튕기지 않게 미리 위치를 바꿔주는 로직입니다.
+  // [포인트 2] 경계 처리 (8~10번 끊김 방지)
+  // 범위를 더 넓게(0~3세트 중 1세트 끝이나 3세트 시작) 잡아서 끊김을 없앱니다.
   if (currentIndex < 2) {
     isSnapScrolling = true;
-    snapCarousel.scrollLeft = slideWidth * (totalOriginal + realIndex);
+    snapCarousel.scrollLeft = scrollLeft + (slideWidth * totalOriginal);
     setTimeout(() => { isSnapScrolling = false; }, 50);
-  } else if (currentIndex >= totalOriginal * 2 - 2) {
+  } else if (currentIndex >= totalOriginal * 2) {
     isSnapScrolling = true;
-    snapCarousel.scrollLeft = slideWidth * (totalOriginal + realIndex);
+    snapCarousel.scrollLeft = scrollLeft - (slideWidth * totalOriginal);
     setTimeout(() => { isSnapScrolling = false; }, 50);
   }
 });
 
-// 화살표 기능 복구
-snapArrows[0].addEventListener("click", () => {
-  const slideWidth = snapCarousel.querySelector('.snap-slide').offsetWidth + 16;
-  snapCarousel.scrollBy({ left: -slideWidth, behavior: "smooth" });
-});
-
-snapArrows[1].addEventListener("click", () => {
-  const slideWidth = snapCarousel.querySelector('.snap-slide').offsetWidth + 16;
-  snapCarousel.scrollBy({ left: slideWidth, behavior: "smooth" });
+// 화살표 버튼
+snapArrows.forEach((arrow, index) => {
+  arrow.addEventListener("click", () => {
+    const slideWidth = snapCarousel.querySelector('.snap-slide').offsetWidth + 16;
+    snapCarousel.scrollBy({ left: index === 0 ? -slideWidth : slideWidth, behavior: "smooth" });
+  });
 });
 
 /* ---------------------------
