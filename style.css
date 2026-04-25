@@ -701,7 +701,7 @@ section.is-visible {
   font-size: 33px;
   margin-top: 65px;
   margin-bottom: 65px;
-  filter: blur(0.9px);
+  filter: blur(1px);
 }
 
 .names-box p {
