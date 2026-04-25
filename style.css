@@ -697,11 +697,11 @@ section.is-visible {
 
 .heart-divider {
   text-align: center;
-  color: rgba(173, 216, 230, 0.45);
-  font-size: 20px;
+  color: rgba(173, 216, 230, 0.5);
+  font-size: 33px;
   margin-top: 65px;
   margin-bottom: 65px;
-  filter: blur(1px);
+  filter: blur(0.7px);
 }
 
 .names-box p {
