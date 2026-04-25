@@ -164,65 +164,7 @@ const snapImages = [
   "images/self-09.jpg",
   "images/self-10.jpg"
 ];
-/* ---------------------------
-   3. SELF SNAP CAROUSEL (최종 정렬 및 끊김 해결)
---------------------------- */
-const snapCarousel = document.getElementById("snapCarousel");
-const snapCounter = document.querySelector(".snap-counter");
-const snapArrows = document.querySelectorAll(".snap-arrow");
-const totalOriginal = 10; 
 
-let isSnapScrolling = false;
-
-// [포인트 1] 1번 사진이 정중앙에 오도록 초기화
-function initSnapPosition() {
-  const slides = snapCarousel.querySelectorAll('.snap-slide');
-  if (slides.length > totalOriginal) {
-    // 2번째 세트의 시작점(1번 사진)으로 이동
-    const targetSlide = slides[totalOriginal]; 
-    snapCarousel.scrollLeft = targetSlide.offsetLeft - (snapCarousel.clientWidth / 2) + (targetSlide.clientWidth / 2);
-  }
-}
-
-// 로딩 직후와 창 크기 변경 시 위치 재설정
-window.addEventListener('load', initSnapPosition);
-window.addEventListener('resize', initSnapPosition);
-setTimeout(initSnapPosition, 100);
-
-snapCarousel.addEventListener("scroll", () => {
-  if (isSnapScrolling) return;
-
-  const slideWidth = snapCarousel.querySelector('.snap-slide').offsetWidth + 16;
-  const scrollLeft = snapCarousel.scrollLeft;
-  
-  // 현재 중앙에 가장 가까운 인덱스 계산
-  const currentIndex = Math.round(scrollLeft / slideWidth);
-  const realIndex = (currentIndex % totalOriginal + totalOriginal) % totalOriginal;
-  
-  snapCounter.textContent = `${realIndex + 1} / ${totalOriginal}`;
-
-  // [포인트 2] 경계 처리 (8~10번 끊김 방지)
-  // 범위를 더 넓게(0~3세트 중 1세트 끝이나 3세트 시작) 잡아서 끊김을 없앱니다.
-  if (currentIndex < 2) {
-    isSnapScrolling = true;
-    snapCarousel.scrollLeft = scrollLeft + (slideWidth * totalOriginal);
-    setTimeout(() => { isSnapScrolling = false; }, 50);
-  } else if (currentIndex >= totalOriginal * 2) {
-    isSnapScrolling = true;
-    snapCarousel.scrollLeft = scrollLeft - (slideWidth * totalOriginal);
-    setTimeout(() => { isSnapScrolling = false; }, 50);
-  }
-});
-
-// 화살표 버튼
-snapArrows.forEach((arrow, index) => {
-  arrow.addEventListener("click", () => {
-    const slideWidth = snapCarousel.querySelector('.snap-slide').offsetWidth + 16;
-    snapCarousel.scrollBy({ left: index === 0 ? -slideWidth : slideWidth, behavior: "smooth" });
-  });
-});
-
-/* ---------------------------
 const snapCarousel = document.getElementById("snapCarousel");
 const snapIndicator = document.getElementById("snapIndicator");
 const snapCounter = document.querySelector(".snap-counter");
@@ -279,7 +221,7 @@ snapArrows[1].addEventListener("click", () => {
   const slideWidth = snapCarousel.querySelector('.snap-slide').offsetWidth + 16;
   snapCarousel.scrollBy({ left: slideWidth, behavior: "smooth" });
 });
---------------------------- */
+
 /* ---------------------------
    4. ACCOUNT COPY
 --------------------------- */
