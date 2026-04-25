@@ -917,7 +917,7 @@ section.is-visible {
   gap: 16px;
   padding: 0 calc(50% - 160px); /* 양옆 사진이 살짝 보이게 */
   background: #1a1a1a;
-  overscroll-behavior-x: none; /* contain보다 none이 무한 루프 시 더 안정적입니다 */
+  overscroll-behavior-x: contain; 
   position: relative;
   /* [핵심 추가] JS로 위치 이동 시 애니메이션 간섭을 막아 끊김을 해결합니다 */
   scroll-behavior: auto !important;
@@ -939,9 +939,6 @@ section.is-visible {
   min-height: 360px;
   max-height: 360px;
   overflow: hidden;
-  /* [추가] 모바일 렌더링 가속 (끊김 방지) */
-  backface-visibility: hidden;
-  transform: translateZ(0);
 }
 
 .snap-slide:hover {
