@@ -1257,6 +1257,15 @@ section.is-visible {
   margin: 0 0 4px;
   font-size: 13px;
   color: #666;
+  display: flex; /* 한 줄 정렬 */
+  align-items: center;
+}
+
+/* 새로 추가되는 성함 스타일 */
+.account-role span {
+  color: #333; /* '이병권' 글자 색상 (진하고 선명하게) */
+  margin-left: 6px; /* '신랑'과의 간격 - 원하는 만큼 숫자로 조절 */
+  font-weight: 500; /* 성함을 조금 더 또렷하게 */
 }
 
 .account-info {
