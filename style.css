@@ -1466,7 +1466,7 @@ section.is-visible {
 
 /* 5번: 상단 위주 (오빠 얼굴 최적화) */
 .gallery-thumb[data-index="5"] img {
-  object-position: center 10%;
+  object-position: center 20%;
 }
 
 /* 8, 9번: 상단 위주 */
