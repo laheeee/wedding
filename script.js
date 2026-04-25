@@ -165,51 +165,56 @@ const snapImages = [
   "images/self-10.jpg"
 ];
 /* ---------------------------
-   3. SELF SNAP CAROUSEL (최종 정렬 보정)
+   3. SELF SNAP CAROUSEL (완전 복구 및 버벅임 수정)
 --------------------------- */
 const snapCarousel = document.getElementById("snapCarousel");
 const snapCounter = document.querySelector(".snap-counter");
 const snapArrows = document.querySelectorAll(".snap-arrow");
-const totalSnapImages = 10; 
 
-const SNAP_ITEM_WIDTH = 280 + 16; 
-const SNAP_LOOP_WIDTH = SNAP_ITEM_WIDTH * totalSnapImages;
+const totalOriginal = 10; // 사진 갯수
 
-// 초기 위치 설정 (정확히 중앙 세트의 1번 사진으로 이동)
+// 기존의 복제 로직은 그대로 둡니다 (이미 HTML/JS에서 복제되어 있다고 가정)
+let isSnapScrolling = false;
+
+// [복구] 1번 사진이 먼저 보이도록 초기 위치 설정
 setTimeout(() => {
-  if (snapCarousel) {
-    // 단순히 totalWidth로 가면 오차가 생길 수 있어, 
-    // 실제 슬라이드 하나의 위치를 정확히 계산해서 보냅니다.
-    snapCarousel.scrollLeft = SNAP_LOOP_WIDTH;
-  }
+  const slideWidth = snapCarousel.querySelector('.snap-slide').offsetWidth + 16;
+  // 중앙 세트의 시작점으로 이동 (1번 사진)
+  snapCarousel.scrollLeft = slideWidth * totalOriginal;
 }, 50);
 
 snapCarousel.addEventListener("scroll", () => {
-  const currentScroll = snapCarousel.scrollLeft;
+  if (isSnapScrolling) return;
 
-  // 무한 루프 보정 (이 로직이 8~10번 끊김을 해결합니다)
-  if (currentScroll < SNAP_LOOP_WIDTH - (SNAP_LOOP_WIDTH / 2)) {
-    snapCarousel.scrollLeft = currentScroll + SNAP_LOOP_WIDTH;
-  } else if (currentScroll > SNAP_LOOP_WIDTH + (SNAP_LOOP_WIDTH / 2)) {
-    snapCarousel.scrollLeft = currentScroll - SNAP_LOOP_WIDTH;
-  }
+  const slideWidth = snapCarousel.querySelector('.snap-slide').offsetWidth + 16;
+  const scrollLeft = snapCarousel.scrollLeft;
+  const currentIndex = Math.round(scrollLeft / slideWidth);
 
-  // 카운터 업데이트
-  // 현재 스크롤 위치에서 중앙 세트의 시작점(SNAP_LOOP_WIDTH)을 뺀 뒤 계산하면 정확합니다.
-  const relativeScroll = currentScroll - SNAP_LOOP_WIDTH;
-  const realSnapIndex = (Math.round(currentScroll / SNAP_ITEM_WIDTH) % totalSnapImages + totalSnapImages) % totalSnapImages;
-  
-  if (snapCounter) {
-    snapCounter.textContent = `${realSnapIndex + 1} / ${totalSnapImages}`;
+  const realIndex = (currentIndex % totalOriginal + totalOriginal) % totalOriginal;
+  snapCounter.textContent = `${realIndex + 1} / ${totalOriginal}`;
+
+  // [수정 포인트] 8~10페이지 끊김 해결을 위해 범위를 살짝 조정 (3 -> 2)
+  // 너무 끝까지 가서 튕기지 않게 미리 위치를 바꿔주는 로직입니다.
+  if (currentIndex < 2) {
+    isSnapScrolling = true;
+    snapCarousel.scrollLeft = slideWidth * (totalOriginal + realIndex);
+    setTimeout(() => { isSnapScrolling = false; }, 50);
+  } else if (currentIndex >= totalOriginal * 2 - 2) {
+    isSnapScrolling = true;
+    snapCarousel.scrollLeft = slideWidth * (totalOriginal + realIndex);
+    setTimeout(() => { isSnapScrolling = false; }, 50);
   }
 });
 
-// 화살표는 기존과 동일하게 유지
+// 화살표 기능 복구
 snapArrows[0].addEventListener("click", () => {
-  snapCarousel.scrollBy({ left: -SNAP_ITEM_WIDTH, behavior: "smooth" });
+  const slideWidth = snapCarousel.querySelector('.snap-slide').offsetWidth + 16;
+  snapCarousel.scrollBy({ left: -slideWidth, behavior: "smooth" });
 });
+
 snapArrows[1].addEventListener("click", () => {
-  snapCarousel.scrollBy({ left: SNAP_ITEM_WIDTH, behavior: "smooth" });
+  const slideWidth = snapCarousel.querySelector('.snap-slide').offsetWidth + 16;
+  snapCarousel.scrollBy({ left: slideWidth, behavior: "smooth" });
 });
 
 /* ---------------------------
