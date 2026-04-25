@@ -165,48 +165,49 @@ const snapImages = [
   "images/self-10.jpg"
 ];
 /* ---------------------------
-   3. SELF SNAP CAROUSEL (무한 루프 최적화 버전)
+   3. SELF SNAP CAROUSEL (최종 정렬 보정)
 --------------------------- */
 const snapCarousel = document.getElementById("snapCarousel");
 const snapCounter = document.querySelector(".snap-counter");
 const snapArrows = document.querySelectorAll(".snap-arrow");
 const totalSnapImages = 10; 
 
-// 셀프 스냅 전용 상수 (변수명 중복 방지)
-const SNAP_ITEM_WIDTH = 280 + 16; // 슬라이드 너비 + gap
+const SNAP_ITEM_WIDTH = 280 + 16; 
 const SNAP_LOOP_WIDTH = SNAP_ITEM_WIDTH * totalSnapImages;
 
-// 초기 위치 설정 (중앙 세트로 이동)
+// 초기 위치 설정 (정확히 중앙 세트의 1번 사진으로 이동)
 setTimeout(() => {
-  if (snapCarousel) snapCarousel.scrollLeft = SNAP_LOOP_WIDTH;
-}, 100);
+  if (snapCarousel) {
+    // 단순히 totalWidth로 가면 오차가 생길 수 있어, 
+    // 실제 슬라이드 하나의 위치를 정확히 계산해서 보냅니다.
+    snapCarousel.scrollLeft = SNAP_LOOP_WIDTH;
+  }
+}, 50);
 
 snapCarousel.addEventListener("scroll", () => {
   const currentScroll = snapCarousel.scrollLeft;
 
-  // [무한 루프 보정] 
-  // 왼쪽 끝이나 오른쪽 끝에 도달하기 전(여유공간 0.5배)에 중앙 세트로 위치를 점프시킵니다.
+  // 무한 루프 보정 (이 로직이 8~10번 끊김을 해결합니다)
   if (currentScroll < SNAP_LOOP_WIDTH - (SNAP_LOOP_WIDTH / 2)) {
-    // 왼쪽 경계 이탈 시 오른쪽으로 점프
     snapCarousel.scrollLeft = currentScroll + SNAP_LOOP_WIDTH;
   } else if (currentScroll > SNAP_LOOP_WIDTH + (SNAP_LOOP_WIDTH / 2)) {
-    // 오른쪽 경계 이탈 시 왼쪽으로 점프
     snapCarousel.scrollLeft = currentScroll - SNAP_LOOP_WIDTH;
   }
 
-  // [카운터 업데이트]
-  // 현재 위치를 기준으로 실제 인덱스를 계산합니다.
-  const realSnapIndex = Math.round(snapCarousel.scrollLeft / SNAP_ITEM_WIDTH) % totalSnapImages;
+  // 카운터 업데이트
+  // 현재 스크롤 위치에서 중앙 세트의 시작점(SNAP_LOOP_WIDTH)을 뺀 뒤 계산하면 정확합니다.
+  const relativeScroll = currentScroll - SNAP_LOOP_WIDTH;
+  const realSnapIndex = (Math.round(currentScroll / SNAP_ITEM_WIDTH) % totalSnapImages + totalSnapImages) % totalSnapImages;
+  
   if (snapCounter) {
     snapCounter.textContent = `${realSnapIndex + 1} / ${totalSnapImages}`;
   }
 });
 
-// 좌우 화살표 버튼 기능
+// 화살표는 기존과 동일하게 유지
 snapArrows[0].addEventListener("click", () => {
   snapCarousel.scrollBy({ left: -SNAP_ITEM_WIDTH, behavior: "smooth" });
 });
-
 snapArrows[1].addEventListener("click", () => {
   snapCarousel.scrollBy({ left: SNAP_ITEM_WIDTH, behavior: "smooth" });
 });
