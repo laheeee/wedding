@@ -201,11 +201,11 @@ snapCarousel.addEventListener("scroll", () => {
   currentSnapIndex = realIndex;
   snapCounter.textContent = `${realIndex + 1} / ${totalOriginal}`;
 
-  if (currentIndex < 3) {
+  if (currentIndex < 1) {
     isSnapScrolling = true;
     snapCarousel.scrollLeft = slideWidth * (totalOriginal + realIndex);
     setTimeout(() => { isSnapScrolling = false; }, 50);
-  } else if (currentIndex >= totalOriginal * 2 - 3) {
+  } else if (currentIndex >= totalOriginal * 2 - 1) {
     isSnapScrolling = true;
     snapCarousel.scrollLeft = slideWidth * (totalOriginal + realIndex);
     setTimeout(() => { isSnapScrolling = false; }, 50);
