@@ -164,7 +164,54 @@ const snapImages = [
   "images/self-09.jpg",
   "images/self-10.jpg"
 ];
+/* ---------------------------
+   3. SELF SNAP CAROUSEL (무한 루프 최적화 버전)
+--------------------------- */
+const snapCarousel = document.getElementById("snapCarousel");
+const snapCounter = document.querySelector(".snap-counter");
+const snapArrows = document.querySelectorAll(".snap-arrow");
+const totalSnapImages = 10; 
 
+// 셀프 스냅 전용 상수 (변수명 중복 방지)
+const SNAP_ITEM_WIDTH = 280 + 16; // 슬라이드 너비 + gap
+const SNAP_LOOP_WIDTH = SNAP_ITEM_WIDTH * totalSnapImages;
+
+// 초기 위치 설정 (중앙 세트로 이동)
+setTimeout(() => {
+  if (snapCarousel) snapCarousel.scrollLeft = SNAP_LOOP_WIDTH;
+}, 100);
+
+snapCarousel.addEventListener("scroll", () => {
+  const currentScroll = snapCarousel.scrollLeft;
+
+  // [무한 루프 보정] 
+  // 왼쪽 끝이나 오른쪽 끝에 도달하기 전(여유공간 0.5배)에 중앙 세트로 위치를 점프시킵니다.
+  if (currentScroll < SNAP_LOOP_WIDTH - (SNAP_LOOP_WIDTH / 2)) {
+    // 왼쪽 경계 이탈 시 오른쪽으로 점프
+    snapCarousel.scrollLeft = currentScroll + SNAP_LOOP_WIDTH;
+  } else if (currentScroll > SNAP_LOOP_WIDTH + (SNAP_LOOP_WIDTH / 2)) {
+    // 오른쪽 경계 이탈 시 왼쪽으로 점프
+    snapCarousel.scrollLeft = currentScroll - SNAP_LOOP_WIDTH;
+  }
+
+  // [카운터 업데이트]
+  // 현재 위치를 기준으로 실제 인덱스를 계산합니다.
+  const realSnapIndex = Math.round(snapCarousel.scrollLeft / SNAP_ITEM_WIDTH) % totalSnapImages;
+  if (snapCounter) {
+    snapCounter.textContent = `${realSnapIndex + 1} / ${totalSnapImages}`;
+  }
+});
+
+// 좌우 화살표 버튼 기능
+snapArrows[0].addEventListener("click", () => {
+  snapCarousel.scrollBy({ left: -SNAP_ITEM_WIDTH, behavior: "smooth" });
+});
+
+snapArrows[1].addEventListener("click", () => {
+  snapCarousel.scrollBy({ left: SNAP_ITEM_WIDTH, behavior: "smooth" });
+});
+
+/* ---------------------------
 const snapCarousel = document.getElementById("snapCarousel");
 const snapIndicator = document.getElementById("snapIndicator");
 const snapCounter = document.querySelector(".snap-counter");
@@ -221,7 +268,7 @@ snapArrows[1].addEventListener("click", () => {
   const slideWidth = snapCarousel.querySelector('.snap-slide').offsetWidth + 16;
   snapCarousel.scrollBy({ left: slideWidth, behavior: "smooth" });
 });
-
+--------------------------- */
 /* ---------------------------
    4. ACCOUNT COPY
 --------------------------- */
