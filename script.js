@@ -1,4 +1,3 @@
- 
 /* ---------------------------
    0. BACKGROUND MUSIC
 --------------------------- */
@@ -48,7 +47,6 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!isAutoOpened) {
       openInvitation();
       isAutoOpened = true;
-      showScrollHint(); // 편지 열림과 동시에 표시
     }
   }, 1500);
 });
@@ -96,38 +94,6 @@ invitation.addEventListener('click', () => {
     closeInvitation();
   }
 });
-
-/* ---------------------------
-   1-1. SCROLL HINT
---------------------------- */
-const scrollHint = document.getElementById('scrollHint');
-let scrollHintShown = false;
-
-function showScrollHint() {
-  if (!scrollHintShown && scrollHint) {
-    scrollHint.classList.add('show');
-    scrollHintShown = true;
-  }
-}
-
-function hideScrollHint() {
-  if (scrollHint) {
-    scrollHint.classList.remove('show');
-  }
-}
-
-// 스크롤 시작하면 힌트 숨김
-let scrollTimer = null;
-window.addEventListener('scroll', () => {
-  if (scrollHintShown) {
-    hideScrollHint();
-  }
-
-  clearTimeout(scrollTimer);
-  scrollTimer = setTimeout(() => {
-    scrollHintShown = true;
-  }, 100);
-}, { passive: true });
 
 /* ---------------------------
    2. D-DAY COUNTDOWN
@@ -371,24 +337,24 @@ function openModal(index, images) {
   imgLoader.src = finalSrc;
 
   // 이미지가 화면에 그려질 준비가 끝났을 때만 모달을 표시
-  imgLoader.{
+  imgLoader.onload = function() {
     modalImage.src = finalSrc;
     modalCounter.textContent = `${currentIndex + 1} / ${currentImages.length}`;
 
     // 강제 리플로우 (사파리 렌더링 깨움)
-    void modalImage.offsetWidth;
+    void modalImage.offsetWidth; 
 
     requestAnimationFrame(() => {
       galleryModal.classList.add("is-open");
       galleryModal.setAttribute("aria-hidden", "false");
       document.body.classList.add("modal-open");
-     
+      
       isModalOpen = true;
       isModalOpening = false;
     });
   };
 
-  imgLoader.{
+  imgLoader.onerror = function() {
     modalImage.src = pureSrc;
     galleryModal.classList.add("is-open");
     isModalOpen = true;
@@ -406,7 +372,7 @@ function closeModal() {
 
   // 닫을 때 이미지를 비워줘야 다음 사진 로딩 시 꼬이지 않음
   setTimeout(() => {
-    modalImage.src = "";
+    modalImage.src = ""; 
     isModalOpen = false;
     isModalOpening = false;
   }, 300);
