@@ -281,42 +281,6 @@ let currentImages = [];
 let isModalOpen = false;
 let isModalOpening = false;
 
-/*--function openModal(index, images) {
-  if (isModalOpen || isModalOpening) return;
-
-  isModalOpening = true;
-
-  currentIndex = index;
-  currentImages = images;
-
-  const imgSrc = currentImages[currentIndex];
-  if (!imgSrc) {
-    isModalOpening = false;
-    return;
-  }
-
-  modalImage.src = imgSrc;
-  modalCounter.textContent = `${currentIndex + 1} / ${currentImages.length}`;
-
-  requestAnimationFrame(() => {
-    galleryModal.classList.add("is-open");
-    galleryModal.setAttribute("aria-hidden", "false");
-    document.body.classList.add("modal-open");
-    isModalOpen = true;
-    isModalOpening = false;
-  });
-}
-
-function closeModal() {
-  if (!isModalOpen) return;
-
-  galleryModal.classList.remove("is-open");
-  galleryModal.setAttribute("aria-hidden", "true");
-  document.body.classList.remove("modal-open");
-  isModalOpen = false;
-}*/
-
-/* --- 기존 openModal을 아래 코드로 교체 --- */
 function openModal(index, images) {
   if (isModalOpen || isModalOpening) return;
   isModalOpening = true;
@@ -362,7 +326,6 @@ function openModal(index, images) {
   };
 }
 
-/* --- 기존 closeModal을 아래 코드로 교체 --- */
 function closeModal() {
   if (!isModalOpen) return;
 
@@ -449,14 +412,25 @@ document.addEventListener("keydown", (e) => {
   }
 });
 
+/* --- ▼▼▼ 여기가 수정된 부분입니다 (두 손가락 스와이프 방지) ▼▼▼ --- */
 let modalTouchStartX = 0;
 let modalTouchEndX = 0;
+let isMultiTouch = false;
 
 galleryModal.addEventListener("touchstart", (e) => {
+  if (e.touches.length > 1) {
+    isMultiTouch = true;
+    return;
+  }
+  isMultiTouch = false;
   modalTouchStartX = e.changedTouches[0].screenX;
-});
+}, { passive: true });
 
 galleryModal.addEventListener("touchend", (e) => {
+  if (isMultiTouch || e.touches.length > 0) {
+    return;
+  }
+  
   modalTouchEndX = e.changedTouches[0].screenX;
   const diff = modalTouchEndX - modalTouchStartX;
 
@@ -466,6 +440,7 @@ galleryModal.addEventListener("touchend", (e) => {
     showNextImage();
   }
 });
+/* --- ▲▲▲ 수정 완료 ▲▲▲ --- */
 
 /* ---------------------------
    6. GALLERY PAGE INDICATOR + INFINITE LOOP
