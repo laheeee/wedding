@@ -1,3 +1,4 @@
+ 
 /* ---------------------------
    0. BACKGROUND MUSIC
 --------------------------- */
@@ -337,24 +338,24 @@ function openModal(index, images) {
   imgLoader.src = finalSrc;
 
   // 이미지가 화면에 그려질 준비가 끝났을 때만 모달을 표시
-  imgLoader.onload = function() {
+  imgLoader.{
     modalImage.src = finalSrc;
     modalCounter.textContent = `${currentIndex + 1} / ${currentImages.length}`;
 
     // 강제 리플로우 (사파리 렌더링 깨움)
-    void modalImage.offsetWidth; 
+    void modalImage.offsetWidth;
 
     requestAnimationFrame(() => {
       galleryModal.classList.add("is-open");
       galleryModal.setAttribute("aria-hidden", "false");
       document.body.classList.add("modal-open");
-      
+     
       isModalOpen = true;
       isModalOpening = false;
     });
   };
 
-  imgLoader.onerror = function() {
+  imgLoader.{
     modalImage.src = pureSrc;
     galleryModal.classList.add("is-open");
     isModalOpen = true;
@@ -372,7 +373,7 @@ function closeModal() {
 
   // 닫을 때 이미지를 비워줘야 다음 사진 로딩 시 꼬이지 않음
   setTimeout(() => {
-    modalImage.src = ""; 
+    modalImage.src = "";
     isModalOpen = false;
     isModalOpening = false;
   }, 300);
@@ -452,9 +453,21 @@ document.addEventListener("keydown", (e) => {
 let modalTouchStartX = 0;
 let modalTouchEndX = 0;
 
+// Pinch Zoom 차단
 galleryModal.addEventListener("touchstart", (e) => {
+  // 두 손가락 이상 터치 시 확대 방지
+  if (e.touches.length > 1) {
+    e.preventDefault();
+  }
   modalTouchStartX = e.changedTouches[0].screenX;
-});
+}, { passive: false });
+
+galleryModal.addEventListener("touchmove", (e) => {
+  // 두 손가락 이상 터치 시 확대 방지
+  if (e.touches.length > 1) {
+    e.preventDefault();
+  }
+}, { passive: false });
 
 galleryModal.addEventListener("touchend", (e) => {
   modalTouchEndX = e.changedTouches[0].screenX;
@@ -634,3 +647,4 @@ accordions.forEach(accordion => {
     }
   });
 });
+
