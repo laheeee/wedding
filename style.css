@@ -819,7 +819,7 @@ section.is-visible {
   aspect-ratio: 1 / 1;
   border-radius: 6px;
   /* [추가] 모바일에서 클릭 대기 시간(300ms)을 없애 즉각 반응하게 합니다 */
-  touch-action: manipulation;
+  touch-action: manipulation; 
   /* [추가] 모바일에서 클릭 시 생기는 파란색 하이라이트 박스를 제거합니다 */
   -webkit-tap-highlight-color: transparent;
 }
@@ -917,7 +917,7 @@ section.is-visible {
   gap: 16px;
   padding: 0 calc(50% - 160px); /* 양옆 사진이 살짝 보이게 */
   background: #1a1a1a;
-  overscroll-behavior-x: contain;
+  overscroll-behavior-x: contain; 
   position: relative;
   /* [핵심 추가] JS로 위치 이동 시 애니메이션 간섭을 막아 끊김을 해결합니다 */
   scroll-behavior: auto !important;
@@ -1350,7 +1350,6 @@ section.is-visible {
   opacity: 0;
   transform: scale(0.98) translateY(10px);
   animation: slideUp 0.2s ease-out 0s forwards;
-  touch-action: pan-y;
 }
 
 @keyframes slideUp {
@@ -1367,12 +1366,11 @@ section.is-visible {
   height: auto;
   object-fit: contain;
   border-radius: 6px;
+  /* 여기에 아래 3줄만 추가하세요 */
   -webkit-user-drag: none;
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
   transform: translateZ(0);
-  touch-action: none;
-  pointer-events: auto;
 }
 
 .modal-close {
@@ -1506,4 +1504,3 @@ section.is-visible {
   filter: brightness(0.9); /* 살짝 어두워짐 */
   transition: transform 0.1s ease-out;
 }
-
