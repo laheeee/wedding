@@ -1504,3 +1504,34 @@ section.is-visible {
   filter: brightness(0.9); /* 살짝 어두워짐 */
   transition: transform 0.1s ease-out;
 }
+
+/* ==========================================
+   스크롤 유도 하늘색 넓은 V자 화살표
+========================================== */
+.scroll-down-hint {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 8px;
+  margin-bottom: 12px;
+  pointer-events: none; /* 클릭을 방해하지 않음 */
+}
+
+.scroll-v-arrow {
+  width: 36px;        /* 화살표 가로 넓이 */
+  height: 15px;       /* 화살표 높이 */
+  color: #70B5F9;     /* 하늘색 (취향에 맞게 HEX 코드 변경 가능) */
+  animation: bounceV 1.4s infinite ease-in-out;
+}
+
+/* 아래로 둥실거리는 애니메이션 */
+@keyframes bounceV {
+  0%, 100% {
+    transform: translateY(0);
+    opacity: 0.6;
+  }
+  50% {
+    transform: translateY(8px); /* 아래로 8px 이동 */
+    opacity: 1;
+  }
+}
