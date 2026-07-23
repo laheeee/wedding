@@ -1534,7 +1534,7 @@ section.is-visible {
 
 /* 2. TAP TO CLOSE (봉투가 열려 내려갔을 때 화살표 위치) */
 #tapHint.opened ~ .scroll-down-hint {
-  bottom: -25px; /* 🌟 TAP TO CLOSE 바로 밑에 오도록 내려주는 위치 */
+  bottom: -40px; /* 🌟 TAP TO CLOSE 바로 밑에 오도록 내려주는 위치 */
 }
 
 /* 아래로 둥실거리는 애니메이션 */
