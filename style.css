@@ -1506,21 +1506,24 @@ section.is-visible {
 }
 
 /* ==========================================
-   스크롤 유도 하늘색 넓은 V자 화살표
+   스크롤 유도 하늘색 넓은 V자 화살표 (위치 수정)
 ========================================== */
 .scroll-down-hint {
+  position: absolute;          /* 절대 위치 설정 */
+  bottom: 15px;                /* 아래에서부터 15px 띄움 (필요시 조절) */
+  left: 50%;
+  transform: translateX(-50%); /* 정확히 가로 가운데 정렬 */
+  z-index: 99;                 /* 카드보다 위에 보이도록 설정 */
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 8px;
-  margin-bottom: 12px;
-  pointer-events: none; /* 클릭을 방해하지 않음 */
+  pointer-events: none;        /* 클릭 터치를 방해하지 않음 */
 }
 
 .scroll-v-arrow {
-  width: 36px;        /* 화살표 가로 넓이 */
-  height: 15px;       /* 화살표 높이 */
-  color: #70B5F9;     /* 하늘색 (취향에 맞게 HEX 코드 변경 가능) */
+  width: 36px;
+  height: 15px;
+  color: #70B5F9;              /* 하늘색 */
   animation: bounceV 1.4s infinite ease-in-out;
 }
 
@@ -1531,7 +1534,7 @@ section.is-visible {
     opacity: 0.6;
   }
   50% {
-    transform: translateY(8px); /* 아래로 8px 이동 */
+    transform: translateY(8px);
     opacity: 1;
   }
 }
