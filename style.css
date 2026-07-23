@@ -1539,7 +1539,7 @@ section.is-visible {
 
 /* 1. TAP TO OPEN (봉투가 닫혀있을 때) */
 #tapHint.folded ~ .scroll-down-hint {
-  bottom: 15px;
+  bottom: 12px;
 }
 
 /* 2. TAP TO CLOSE (봉투가 열려 내려갔을 때) */
