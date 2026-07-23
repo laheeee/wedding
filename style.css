@@ -1506,18 +1506,18 @@ section.is-visible {
 }
 
 /* ==========================================
-   스크롤 유도 하늘색 넓은 V자 화살표 (위치 수정)
+   스크롤 유도 하늘색 넓은 V자 화살표 (상태별 위치 대응)
 ========================================== */
 .scroll-down-hint {
-  position: absolute;          /* 절대 위치 설정 */
-  bottom: 15px;                /* 아래에서부터 15px 띄움 (필요시 조절) */
+  position: absolute;
   left: 50%;
-  transform: translateX(-50%); /* 정확히 가로 가운데 정렬 */
-  z-index: 99;                 /* 카드보다 위에 보이도록 설정 */
+  transform: translateX(-50%);
+  z-index: 99;
   display: flex;
   justify-content: center;
   align-items: center;
-  pointer-events: none;        /* 클릭 터치를 방해하지 않음 */
+  pointer-events: none;
+  transition: all 0.4s ease; /* 위치가 이동할 때 부드럽게 수동 따라감 */
 }
 
 .scroll-v-arrow {
@@ -1525,6 +1525,16 @@ section.is-visible {
   height: 15px;
   color: #70B5F9;              /* 하늘색 */
   animation: bounceV 1.4s infinite ease-in-out;
+}
+
+/* 1. TAP TO OPEN (봉투가 닫혀있을 때 화살표 위치) */
+#tapHint.folded ~ .scroll-down-hint {
+  bottom: 15px;
+}
+
+/* 2. TAP TO CLOSE (봉투가 열려 내려갔을 때 화살표 위치) */
+#tapHint.opened ~ .scroll-down-hint {
+  bottom: -25px; /* 🌟 TAP TO CLOSE 바로 밑에 오도록 내려주는 위치 */
 }
 
 /* 아래로 둥실거리는 애니메이션 */
