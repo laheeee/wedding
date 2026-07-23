@@ -1506,7 +1506,7 @@ section.is-visible {
 }
 
 /* ==========================================
-   스크롤 유도 하늘색 넓은 V자 화살표 (상태별 위치 대응)
+   스크롤 유도 은은한 하늘색 V자 화살표 (블러/글로우 효과)
 ========================================== */
 .scroll-down-hint {
   position: absolute;
@@ -1517,31 +1517,34 @@ section.is-visible {
   justify-content: center;
   align-items: center;
   pointer-events: none;
-  transition: all 0.4s ease; /* 위치가 이동할 때 부드럽게 수동 따라감 */
+  transition: all 0.4s ease;
 }
 
 .scroll-v-arrow {
   width: 36px;
   height: 15px;
-  color: #70B5F9;              /* 하늘색 */
-  animation: bounceV 1.4s infinite ease-in-out;
+  /* 🌟 청첩장 분위기에 어울리는 은은한 부드러운 하늘색 */
+  color: #a8c8e8; 
+  /* 🌟 살짝 번지는 은은한 블러 & 빛남(Glow) 효과 */
+  filter: drop-shadow(0 0 6px rgba(168, 200, 232, 0.8)) blur(0.3px);
+  animation: bounceV 1.6s infinite ease-in-out;
 }
 
-/* 1. TAP TO OPEN (봉투가 닫혀있을 때 화살표 위치) */
+/* 1. TAP TO OPEN (봉투가 닫혀있을 때) */
 #tapHint.folded ~ .scroll-down-hint {
   bottom: 15px;
 }
 
-/* 2. TAP TO CLOSE (봉투가 열려 내려갔을 때 화살표 위치) */
+/* 2. TAP TO CLOSE (봉투가 열려 내려갔을 때) */
 #tapHint.opened ~ .scroll-down-hint {
-  bottom: -70px; /* 🌟 TAP TO CLOSE 바로 밑에 오도록 내려주는 위치 */
+  bottom: -70px;
 }
 
 /* 아래로 둥실거리는 애니메이션 */
 @keyframes bounceV {
   0%, 100% {
     transform: translateY(0);
-    opacity: 0.6;
+    opacity: 0.7;
   }
   50% {
     transform: translateY(8px);
